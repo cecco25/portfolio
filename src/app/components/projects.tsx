@@ -26,7 +26,7 @@ export default function Projects() {
       title: 'E-Learning Platform',
       description:
         'A complete e-learning platform with courses, modules and non-skippable video lessons.',
-      image: '/e-learning.png?height=400&width=600',
+      image: 'e-learning.png?height=400&width=600',
       tags: ['Laravel', 'React', 'Tailwind CSS', 'MySQL'],
       demoLink: 'https://formazione.maspoint.it/dashboard',
       githubLink: '',
@@ -35,7 +35,7 @@ export default function Projects() {
       title: 'Nightwave',
       description:
         'Web platform designed for nightclubs to publish events, sell tickets, and engage with their audience.',
-      image: '/nightwave.png',
+      image: 'nightwave.png',
       tags: ['Laravel', 'React', 'Tailwind CSS', 'MySQL'],
       demoLink: '',
       githubLink: '',
@@ -44,7 +44,7 @@ export default function Projects() {
       title: 'Scalogna Quest',
       description:
         'A remake of Heroquest where players try to be the first to get out of dungeons.',
-      image: '/scalogna-quest.svg?height=400&width=600',
+      image: 'scalogna-quest.svg?height=400&width=600',
       tags: ['C'],
       demoLink: '',
       githubLink: 'https://github.com/cecco25/scalogna-quest',

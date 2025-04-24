@@ -38,7 +38,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link href="#home" className="text-xl font-bold">
           <span className="text-primary">
-            <Image src={'/mc-logo.svg'} alt={'Michael Logo'} width={50} height={50} />
+            <Image src={'mc-logo.svg'} alt={'Michael Logo'} width={50} height={50} />
           </span>
         </Link>
 
