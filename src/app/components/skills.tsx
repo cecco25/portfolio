@@ -16,6 +16,7 @@ import {
   Figma,
   Angular,
   Laravel,
+  Mongodb,
 } from './tech-icons';
 import { IconCloud } from './icon-cloud';
 
@@ -38,6 +39,7 @@ export default function Skills() {
     { icon: <Php className="h-10 w-10" />, name: 'PHP', level: 90 },
     { icon: <Laravel className="h-10 w-10" />, name: 'Laravel', level: 70 },
     { icon: <Mysql className="h-10 w-10" />, name: 'MySQL', level: 80 },
+    { icon: <Mongodb className="h-10 w-10" />, name: 'MongoDB', level: 90 },
   ];
 
   const designSkills = [{ icon: <Figma className="h-10 w-10" />, name: 'Figma', level: 75 }];

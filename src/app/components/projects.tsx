@@ -49,6 +49,14 @@ export default function Projects() {
       demoLink: '',
       githubLink: 'https://github.com/cecco25/scalogna-quest',
     },
+    {
+      title: 'ToDo App',
+      description: 'Simple Todo App where you can add, edit and delete your tasks.',
+      image: 'todo.png',
+      tags: ['NextJS', 'Tailwind CSS', 'Shadcn UI', 'MongoDB'],
+      demoLink: '',
+      githubLink: '',
+    },
   ];
 
   const container = {
