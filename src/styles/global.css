@@ -1,1 +1,51 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+:root {
+  --background-color: #1f2329;
+  --color-text: #ffe5da;
+  --text-muted: #b0b0b0;
+  --color-accent: #ea1818;
+  --nav-height: 4rem;
+  --spacing: 0.5rem;
+  --space-x: clamp(var(--spacing), 2vw, calc(var(--spacing) * 2));
+  --space-y: calc(var(--spacing) * 0.9);
+  --space-link-gap-mobile: calc(var(--spacing) * 0.75);
+  --tracking-brand: 0.08em;
+  --tracking-nav: 0.1em;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+}
+
+@layer base {
+  nav {
+    padding-inline: var(--space-x);
+  }
+
+  nav ul {
+    gap: var(--space-link-gap-mobile);
+  }
+
+  @media (min-width: 768px) {
+    nav ul {
+      gap: var(--spacing);
+    }
+  }
+}
+
+html,
+body {
+  background-color: var(--background-color);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@layer components {
+  main h1 {
+    @apply text-4xl sm:text-6xl md:text-8xl lg:text-[144px]/[150px] mt-1;
+  }
+}
