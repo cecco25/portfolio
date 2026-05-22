@@ -1,26 +1,40 @@
-<div id="container">
-  <main class="">
-    <div class="self-end flex flex-col gap-4 my-auto lg:my-0">
-      <h1>Fullstack Web Developer & CS Passionate</h1>
-      <p
-        class="text-(--text-muted) [&_strong]:text-(--text-color) text-sm sm:text-lg"
-      >
-        Building <strong>modern</strong> web applications with <strong
-          >modern</strong
-        > technologies.
-      </p>
-    </div>
-  </main>
-</div>
+<main class="h-full flex p-4">
+  <div
+    class="self-end flex flex-col-reverse md:flex-col gap-4 md:max-w-[80%] my-auto lg:my-0 py-4"
+  >
+    <p
+      id="hero-sub"
+      class="text-(--text-muted) [&_strong]:text-(--text-color) text-sm sm:text-lg opacity-0"
+    >
+      Turning ideas into <strong>real web products</strong>.
+    </p>
+    <h1
+      id="hero-title"
+      class="text-4xl sm:text-6xl md:text-8xl lg:text-[100px]/[120px] mt-1 overflow-hidden"
+      aria-label="Full-Stack Developer building for the modern web"
+    >
+      Full-Stack Developer building for the modern web
+    </h1>
+  </div>
+</main>
 
-<style>
-  #container {
-    height: 100%;
-  }
+<script>
+  import { gsap } from 'gsap';
+  import { SplitText } from 'gsap/SplitText';
 
-  main {
-    height: 100%;
-    display: flex;
-    padding: 1rem;
-  }
-</style>
+  gsap.registerPlugin(SplitText);
+
+  const title = document.getElementById('hero-title') as HTMLElement;
+  const sub = document.getElementById('hero-sub') as HTMLElement;
+
+  const split = new SplitText(title, { type: 'chars,words' });
+
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  tl.from(split.chars, {
+    y: '110%',
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.025,
+  }).to(sub, { opacity: 1, duration: 0.6 }, '-=0.3');
+</script>

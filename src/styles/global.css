@@ -44,9 +44,3 @@ body {
   width: 100%;
   height: 100%;
 }
-
-@layer components {
-  main h1 {
-    @apply text-4xl sm:text-6xl md:text-8xl lg:text-[144px]/[150px] mt-1;
-  }
-}
