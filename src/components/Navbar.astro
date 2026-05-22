@@ -1,0 +1,75 @@
+---
+import Link from '@components/link.vue';
+
+const links = [
+  { href: '#projects', label: 'Projects', cta: false },
+  { href: '#about', label: 'About', cta: false },
+  { href: '#contact', label: 'Contact', cta: false },
+  { href: '/resume.pdf', label: 'Resume', cta: true },
+];
+---
+
+<header class="fixed left-0 top-0 z-50 w-full backdrop-blur-md">
+  <nav class="flex h-(--nav-height) w-full items-center justify-between">
+    <a
+      href="/"
+      class="[font-family:var(--font-display)] text-2xl tracking-(--tracking-brand) text-(--color-accent) hover:underline transition-colors"
+      aria-label="Go to homepage"
+    >
+      Michael Cecchini
+    </a>
+
+    <div
+      class="absolute left-0 top-(--nav-height) w-full px-(--space-x) py-(--space-y) shadow-(--shadow-soft) md:static md:block md:w-auto md:bg-transparent md:p-0 md:shadow-none"
+      id="menu-panel"
+      data-open="false"
+    >
+      <ul class="flex flex-col items-start md:flex-row md:items-center">
+        {
+          links.map((link) => (
+            <li>
+              <Link href={link.href} cta={link.cta}>
+                {link.label}
+              </Link>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector('#menu-toggle');
+  const panel = document.querySelector('#menu-panel');
+
+  if (toggle && panel) {
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+      panel.setAttribute('data-open', String(!isOpen));
+
+      if (!isOpen) {
+        panel.classList.remove('hidden');
+      } else {
+        panel.classList.add('hidden');
+      }
+    });
+
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    const syncMenuState = () => {
+      if (mediaQuery.matches) {
+        panel.classList.remove('hidden');
+        panel.setAttribute('data-open', 'true');
+        toggle.setAttribute('aria-expanded', 'true');
+      } else {
+        panel.classList.add('hidden');
+        panel.setAttribute('data-open', 'false');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    syncMenuState();
+    mediaQuery.addEventListener('change', syncMenuState);
+  }
+</script>
