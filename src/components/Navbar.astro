@@ -13,7 +13,7 @@ const links = [
   <nav class="flex h-(--nav-height) w-full items-center justify-between">
     <a
       href="/"
-      class="[font-family:var(--font-display)] text-[clamp(1.55rem,2.1vw,2rem)] tracking-(--tracking-brand) text-(--color-accent) hover:underline transition-colors hover:text-(--color-accent)"
+      class="[font-family:var(--font-display)] text-2xl tracking-(--tracking-brand) text-(--color-accent) hover:underline transition-colors"
       aria-label="Go to homepage"
     >
       Michael Cecchini
@@ -28,14 +28,7 @@ const links = [
         {
           links.map((link) => (
             <li>
-              <Link
-                href={link.href}
-                class:list={[
-                  {
-                    'font-bold': link.cta,
-                  },
-                ]}
-              >
+              <Link href={link.href} cta={link.cta}>
                 {link.label}
               </Link>
             </li>

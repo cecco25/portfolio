@@ -6,7 +6,9 @@
         'tracking-(--tracking-nav)',
         'transition-colors',
         'hover:text-(--color-accent)',
-        { 'font-bold': cta }
+        { 'text-(--text-muted)': !cta },
+        { 'font-bold': cta },
+        { 'text-(--text-color)': cta }
     ]">
         <slot>{{ label }}</slot>
     </a>

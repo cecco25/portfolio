@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import 'tailwindcss';
 
 :root {
   --background-color: #1f2329;
-  --color-text: #ffe5da;
+  --text-color: #ffe5da;
   --text-muted: #b0b0b0;
   --color-accent: #ea1818;
   --nav-height: 4rem;
@@ -11,10 +11,11 @@
   --space-x: clamp(var(--spacing), 2vw, calc(var(--spacing) * 2));
   --space-y: calc(var(--spacing) * 0.9);
   --space-link-gap-mobile: calc(var(--spacing) * 0.75);
-  --tracking-brand: 0.08em;
+  --tracking-brand: -0.05em;
   --tracking-nav: 0.1em;
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-display: 'JetBrains Mono', monospace;
+  --font-body: 'Geist', sans-serif;
+  --line-height: 1.6;
 }
 
 @layer base {
@@ -36,9 +37,9 @@
 html,
 body {
   background-color: var(--background-color);
-  color: var(--color-text);
+  color: var(--text-color);
   font-family: var(--font-body);
-  line-height: 1.6;
+  line-height: var(--line-height);
   margin: 0;
   width: 100%;
   height: 100%;
