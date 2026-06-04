@@ -1,52 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+@import "tailwindcss";
 
 :root {
   --background-color: #1f2329;
   --text-color: #ffe5da;
   --text-muted: #b0b0b0;
   --color-accent: #ea1818;
-  --nav-height: 4rem;
-  --spacing: 0.5rem;
-  --space-x: clamp(var(--spacing), 2vw, calc(var(--spacing) * 2));
-  --space-y: calc(var(--spacing) * 0.9);
-  --space-link-gap-mobile: calc(var(--spacing) * 0.75);
-  --tracking-brand: -0.05em;
-  --tracking-nav: 0.1em;
-  --font-display: 'JetBrains Mono', monospace;
-  --font-body: 'Geist', sans-serif;
+  --font-display: "JetBrains Mono", monospace;
+  --font-body: "Geist", sans-serif;
   --line-height: 1.6;
 }
 
 @layer base {
-  nav {
-    padding-inline: var(--space-x);
+  html,
+  body {
+    @apply bg-(--background-color) text-(--text-color) leading-(--line-height)  font-(--font-body) m-0 w-full h-full;
   }
 
-  nav ul {
-    gap: var(--space-link-gap-mobile);
-  }
-
-  @media (min-width: 768px) {
-    nav ul {
-      gap: var(--spacing);
-    }
-  }
-}
-
-html,
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: var(--font-body);
-  line-height: var(--line-height);
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
-
-@layer components {
-  main h1 {
-    @apply text-4xl sm:text-6xl md:text-8xl lg:text-[144px]/[150px] mt-1;
+  body {
+    @apply p-4;
   }
 }
