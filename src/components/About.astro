@@ -1,0 +1,110 @@
+---
+import Code from 'phosphor-astro/Code.astro';
+import Palette from 'phosphor-astro/Palette.astro';
+import Brain from 'phosphor-astro/Brain.astro';
+import BookOpen from 'phosphor-astro/BookOpen.astro';
+import Gamepad2 from 'phosphor-astro/GameController.astro';
+import MusicNote from 'phosphor-astro/MusicNote.astro';
+---
+
+<section id='about' class='section py-16'>
+	<div class='max-w-4xl mx-auto'>
+		<div id='about-content'>
+			<h2 class='title'>About Me</h2>
+
+			<div
+				class='overflow-hidden border border-border rounded-lg shadow-lg bg-card/50 backdrop-blur-sm p-8'
+			>
+				<div class='space-y-4 text-lg leading-relaxed mb-8'>
+					<p>
+						Hi everyone, I'm Michael Cecchini and I'm a student at university in Perugia
+						(PG).
+					</p>
+					<p>
+						I am passionate about IT and, in particular, Web development: Frontend and
+						Backend. This passion for websites also allowed me to learn to use UI/UX
+						Design tools.
+					</p>
+					<p>
+						I am currently attending university to broaden my knowledge in the world of
+						technology and IT.
+					</p>
+					<p>Finally, I also like reading, playing video games and the world of music.</p>
+				</div>
+
+				<div class='grid grid-cols-1 md:grid-cols-2 gap-8 mt-8'>
+					<div>
+						<h3 class='text-xl font-semibold mb-4'>My Passions</h3>
+						<div class='space-y-4'>
+							<div class='flex items-center gap-3'>
+								<div class='p-2 rounded-full bg-primary/10 text-primary'>
+									<Code width={24} height={24} />
+								</div>
+								<span>Web Development</span>
+							</div>
+							<div class='flex items-center gap-3'>
+								<div class='p-2 rounded-full bg-primary/10 text-primary'>
+									<Palette width={24} height={24} />
+								</div>
+								<span>UI/UX Design</span>
+							</div>
+							<div class='flex items-center gap-3'>
+								<div class='p-2 rounded-full bg-primary/10 text-primary'>
+									<Brain width={24} height={24} />
+								</div>
+								<span>Learning</span>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<h3 class='text-xl font-semibold mb-4'>My Interests</h3>
+						<div class='space-y-4'>
+							<div class='flex items-center gap-3'>
+								<div class='p-2 rounded-full bg-primary/10 text-primary'>
+									<BookOpen width={24} height={24} />
+								</div>
+								<span>Reading</span>
+							</div>
+							<div class='flex items-center gap-3'>
+								<div class='p-2 rounded-full bg-primary/10 text-primary'>
+									<Gamepad2 width={24} height={24} />
+								</div>
+								<span>Gaming</span>
+							</div>
+							<div class='flex items-center gap-3'>
+								<div class='p-2 rounded-full bg-primary/10 text-primary'>
+									<MusicNote width={24} height={24} />
+								</div>
+								<span>Music</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	const aboutContent = document.getElementById('about-content') as HTMLElement;
+
+	if (aboutContent) {
+		gsap.from(aboutContent, {
+			scrollTrigger: {
+				trigger: aboutContent,
+				start: 'top center',
+				once: true,
+			},
+			opacity: 0,
+			y: 20,
+			duration: 0.8,
+			ease: 'power3.out',
+		});
+	}
+</script>

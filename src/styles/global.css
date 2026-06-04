@@ -14,10 +14,23 @@
 @layer base {
   html,
   body {
-    @apply bg-(--background-color) text-(--text-color) leading-(--line-height)  font-(--font-body) m-0 w-full h-full;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: var(--line-height);
+    font-family: var(--font-body);
+    margin: 0;
   }
 
   body {
-    @apply p-4;
+    padding: 1rem;
+  }
+
+  .title {
+    @apply text-3xl md:text-4xl font-bold mt-8 mb-4;
+    color: var(--color-accent);
+  }
+
+  .section {
+    @apply h-screen flex items-center;
   }
 }
