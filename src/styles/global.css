@@ -1,23 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 @import "tailwindcss";
 
-:root {
-  --background-color: #1f2329;
-  --text-color: #ffe5da;
-  --text-muted: #b0b0b0;
-  --color-accent: #ea1818;
+@theme {
+  --color-background: #1f2329;
+  --color-primary: #ea1818;
+  --color-muted: #b0b0b0;
+  --color-body-text: #ffe5da;
+
   --font-display: "JetBrains Mono", monospace;
   --font-body: "Geist", sans-serif;
-  --line-height: 1.6;
 }
 
 @layer base {
   html,
   body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: var(--line-height);
+    background-color: var(--color-background);
+    color: var(--color-body-text);
     font-family: var(--font-body);
+    line-height: 1.6;
     margin: 0;
   }
 
@@ -25,12 +25,21 @@
     padding: 1rem;
   }
 
+  #smooth-wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #smooth-content {
+    width: 100%;
+    padding: 1rem;
+  }
+
   .title {
-    @apply text-3xl md:text-4xl font-bold mt-8 mb-4;
-    color: var(--color-accent);
+    @apply text-3xl md:text-4xl font-bold mt-8 mb-4 text-primary;
   }
 
   .section {
-    @apply h-screen flex items-center;
+    @apply min-h-screen flex items-center;
   }
 }

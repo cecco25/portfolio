@@ -2,15 +2,15 @@
   <a
     :href="href"
     :class="[
-      'font-family:var(--font-body)',
+      'font-body',
       'text-sm',
       'uppercase',
       'tracking-widest',
       'transition-colors',
-      'hover:text-(--color-accent)',
-      { 'text-(--text-muted)': !cta },
+      'hover:text-primary',
+      { 'text-muted': !cta },
       { 'font-bold': cta },
-      { 'text-(--text-color)': cta },
+      { 'text-body-text': cta },
     ]"
   >
     <slot>{{ label }}</slot>
