@@ -1,0 +1,125 @@
+---
+import Code from 'phosphor-astro/Code.astro';
+import Brain from 'phosphor-astro/Brain.astro';
+import BookOpen from 'phosphor-astro/BookOpen.astro';
+import Cpu from 'phosphor-astro/Cpu.astro';
+import Gamepad2 from 'phosphor-astro/GameController.astro';
+import MusicNote from 'phosphor-astro/MusicNote.astro';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+
+interface Icon {
+	name: string;
+	icon: AstroComponentFactory;
+	type: 'passion' | 'interest';
+}
+
+const icons: Icon[] = [
+	{ name: 'Web Development', icon: Code, type: 'passion' },
+	{ name: 'Software Engineering', icon: Cpu, type: 'passion' },
+	{ name: 'Learning', icon: Brain, type: 'passion' },
+	{ name: 'Reading', icon: BookOpen, type: 'interest' },
+	{ name: 'Gaming', icon: Gamepad2, type: 'interest' },
+	{ name: 'Music', icon: MusicNote, type: 'interest' },
+];
+---
+
+<section id='about' class='section py-16'>
+	<div class='max-w-4xl mx-auto'>
+		<div id='about-content'>
+			<h2 class='title'>About Me</h2>
+
+			<div
+				class='overflow-hidden border border-border rounded-lg shadow-lg bg-card/50 backdrop-blur-sm p-8'
+			>
+				<div class='space-y-4 leading-relaxed mb-8'>
+					<p>
+						Hi everyone, I'm Michael Cecchini, a junior full-stack web developer and a computer
+						science student at the University of Perugia.
+					</p>
+					<p>
+						I am passionate about building modern web applications, working across both the frontend
+						and backend. Over the years, I've developed projects using modern technologies like
+						React, Next.js, Laravel, and Node.js, while managing data with MySQL and PostgreSQL.
+					</p>
+					<p>
+						In addition to my studies to broaden my knowledge in the technology world, I work on
+						real-world web applications and open-source starter templates.
+					</p>
+				</div>
+
+				<div class='grid grid-cols-1 md:grid-cols-2 gap-8 mt-8'>
+					<div>
+						<h3 class='text-xl font-semibold mb-4'>My Passions</h3>
+						<div class='space-y-4'>
+							{
+								icons
+									.filter((icon) => icon.type === 'passion')
+									.map((icon) => {
+										const IconComponent = icon.icon;
+
+										return (
+											<div class='flex items-center gap-3'>
+												<div class='about-icon'>
+													<IconComponent width={24} height={24} />
+												</div>
+												<span>{icon.name}</span>
+											</div>
+										);
+									})
+							}
+						</div>
+					</div>
+
+					<div>
+						<h3 class='text-xl font-semibold mb-4'>My Interests</h3>
+						<div class='space-y-4'>
+							{
+								icons
+									.filter((icon) => icon.type === 'interest')
+									.map((icon) => {
+										const IconComponent = icon.icon;
+
+										return (
+											<div class='flex items-center gap-3'>
+												<div class='about-icon'>
+													<IconComponent width={24} height={24} />
+												</div>
+												<span>{icon.name}</span>
+											</div>
+										);
+									})
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			import { gsap } from 'gsap';
+
+			import { ScrollTrigger } from 'gsap/ScrollTrigger';
+			gsap.registerPlugin(ScrollTrigger);
+
+			const aboutContent = document.getElementById('about-content') as HTMLElement;
+
+			gsap.fromTo(
+				aboutContent,
+				{
+					opacity: 0,
+					y: 50,
+				},
+				{
+					opacity: 1,
+					y: 0,
+					scrollTrigger: {
+						trigger: aboutContent,
+						start: 'top 90%',
+						end: 'top 50%',
+						scrub: true,
+					},
+				},
+			);
+		</script>
+	</div>
+</section>

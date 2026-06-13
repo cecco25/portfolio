@@ -14,7 +14,25 @@ import '../styles/global.css';
 		<title>Michael Cecchini's Portfolio</title>
 	</head>
 	<body>
-		<Navbar />
-		<slot />
+		<div id='smooth-wrapper'>
+			<div id='smooth-content'>
+				<Navbar />
+				<slot />
+			</div>
+		</div>
 	</body>
 </html>
+
+<script>
+	import gsap from 'gsap';
+	import { ScrollSmoother } from 'gsap/ScrollSmoother';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+	ScrollSmoother.create({
+		smooth: 2,
+		effects: true,
+		smoothTouch: 0.1,
+	});
+</script>

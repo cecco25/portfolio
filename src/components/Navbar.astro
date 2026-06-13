@@ -9,18 +9,18 @@ const links = [
 ];
 ---
 
-<header class='fixed left-0 top-0 z-50 w-full backdrop-blur-md px-4'>
-	<nav class='flex h-16 w-full items-center justify-between'>
+<header class='w-full'>
+	<nav class='flex flex-col md:flex-row w-full md:items-center justify-between'>
 		<a
 			href='/'
-			class='[font-family:var(--font-display)] text-2xl tracking-tighter text-(--color-accent) hover:underline transition-colors'
+			class='font-display text-2xl tracking-tighter text-primary hover:underline transition-colors'
 			aria-label='Go to homepage'
 		>
 			Michael Cecchini
 		</a>
 
 		<div
-			class='absolute px-4 left-0 top-16 w-full shadow-(--shadow-soft) md:static md:block md:w-auto md:bg-transparent md:p-0 md:shadow-none'
+			class='py-4 w-full shadow-sm md:static md:block md:w-auto md:bg-transparent md:p-0 md:shadow-none'
 			id='menu-panel'
 			data-open='false'
 		>
