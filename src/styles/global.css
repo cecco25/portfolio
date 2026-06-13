@@ -4,6 +4,7 @@
 @theme {
   --color-background: #1f2329;
   --color-primary: #ea1818;
+  --color-secondary: #0093bd;
   --color-muted: #b0b0b0;
   --color-body-text: #ffe5da;
 
@@ -41,5 +42,9 @@
 
   .section {
     @apply min-h-screen flex items-center;
+  }
+
+  .about-icon {
+    @apply p-2 rounded-full bg-secondary/10 text-secondary;
   }
 }

@@ -5,6 +5,22 @@ import BookOpen from 'phosphor-astro/BookOpen.astro';
 import Cpu from 'phosphor-astro/Cpu.astro';
 import Gamepad2 from 'phosphor-astro/GameController.astro';
 import MusicNote from 'phosphor-astro/MusicNote.astro';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+
+interface Icon {
+	name: string;
+	icon: AstroComponentFactory;
+	type: 'passion' | 'interest';
+}
+
+const icons: Icon[] = [
+	{ name: 'Web Development', icon: Code, type: 'passion' },
+	{ name: 'Software Engineering', icon: Cpu, type: 'passion' },
+	{ name: 'Learning', icon: Brain, type: 'passion' },
+	{ name: 'Reading', icon: BookOpen, type: 'interest' },
+	{ name: 'Gaming', icon: Gamepad2, type: 'interest' },
+	{ name: 'Music', icon: MusicNote, type: 'interest' },
+];
 ---
 
 <section id='about' class='section py-16'>
@@ -35,79 +51,75 @@ import MusicNote from 'phosphor-astro/MusicNote.astro';
 					<div>
 						<h3 class='text-xl font-semibold mb-4'>My Passions</h3>
 						<div class='space-y-4'>
-							<div class='flex items-center gap-3'>
-								<div class='p-2 rounded-full bg-primary/10 text-primary'>
-									<Code width={24} height={24} />
-								</div>
-								<span>Web Development</span>
-							</div>
-							<div class='flex items-center gap-3'>
-								<div class='p-2 rounded-full bg-primary/10 text-primary'>
-									<Cpu width={24} height={24} />
-								</div>
-								<span>Software Engineering</span>
-							</div>
-							<div class='flex items-center gap-3'>
-								<div class='p-2 rounded-full bg-primary/10 text-primary'>
-									<Brain width={24} height={24} />
-								</div>
-								<span>Learning</span>
-							</div>
+							{
+								icons
+									.filter((icon) => icon.type === 'passion')
+									.map((icon) => {
+										const IconComponent = icon.icon;
+
+										return (
+											<div class='flex items-center gap-3'>
+												<div class='about-icon'>
+													<IconComponent width={24} height={24} />
+												</div>
+												<span>{icon.name}</span>
+											</div>
+										);
+									})
+							}
 						</div>
 					</div>
 
 					<div>
 						<h3 class='text-xl font-semibold mb-4'>My Interests</h3>
 						<div class='space-y-4'>
-							<div class='flex items-center gap-3'>
-								<div class='p-2 rounded-full bg-primary/10 text-primary'>
-									<BookOpen width={24} height={24} />
-								</div>
-								<span>Reading</span>
-							</div>
-							<div class='flex items-center gap-3'>
-								<div class='p-2 rounded-full bg-primary/10 text-primary'>
-									<Gamepad2 width={24} height={24} />
-								</div>
-								<span>Gaming</span>
-							</div>
-							<div class='flex items-center gap-3'>
-								<div class='p-2 rounded-full bg-primary/10 text-primary'>
-									<MusicNote width={24} height={24} />
-								</div>
-								<span>Music</span>
-							</div>
+							{
+								icons
+									.filter((icon) => icon.type === 'interest')
+									.map((icon) => {
+										const IconComponent = icon.icon;
+
+										return (
+											<div class='flex items-center gap-3'>
+												<div class='about-icon'>
+													<IconComponent width={24} height={24} />
+												</div>
+												<span>{icon.name}</span>
+											</div>
+										);
+									})
+							}
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<script>
+			import { gsap } from 'gsap';
+
+			import { ScrollTrigger } from 'gsap/ScrollTrigger';
+			gsap.registerPlugin(ScrollTrigger);
+
+			const aboutContent = document.getElementById('about-content') as HTMLElement;
+
+			gsap.fromTo(
+				aboutContent,
+				{
+					opacity: 0,
+					y: 50,
+				},
+				{
+					opacity: 1,
+					y: 0,
+					scrollTrigger: {
+						trigger: aboutContent,
+						start: 'top 90%',
+						end: 'top 50%',
+						scrub: true,
+					},
+				},
+			);
+		</script>
 	</div>
 </section>
-
-<script>
-	import { gsap } from 'gsap';
-
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
-
-	const aboutContent = document.getElementById('about-content') as HTMLElement;
-
-	gsap.fromTo(
-		aboutContent,
-		{
-			opacity: 0,
-			y: 50,
-		},
-		{
-			opacity: 1,
-			y: 0,
-			scrollTrigger: {
-				trigger: aboutContent,
-				start: 'top 90%',
-				end: 'top 50%',
-				scrub: true,
-			},
-		},
-	);
-</script>
