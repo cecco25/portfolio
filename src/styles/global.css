@@ -43,8 +43,4 @@
   .section {
     @apply min-h-screen flex items-center;
   }
-
-  .about-icon {
-    @apply p-2 rounded-full bg-secondary/10 text-secondary;
-  }
 }
