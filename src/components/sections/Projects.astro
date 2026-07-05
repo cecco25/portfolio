@@ -1,50 +1,71 @@
 ---
 import GithubLogo from 'phosphor-astro/GithubLogo.astro';
-import ArrowUpRight from 'phosphor-astro/ArrowUpRight.astro';
+import iconNextjs from 'simple-icons/icons/nextdotjs.svg?raw';
+import iconBetterAuth from 'simple-icons/icons/betterauth.svg?raw';
+import iconPostgresql from 'simple-icons/icons/postgresql.svg?raw';
+import iconMysql from 'simple-icons/icons/mysql.svg?raw';
+import iconPrisma from 'simple-icons/icons/prisma.svg?raw';
+import iconLaravel from 'simple-icons/icons/laravel.svg?raw';
+import iconReact from 'simple-icons/icons/react.svg?raw';
+import iconInertia from 'simple-icons/icons/inertia.svg?raw';
+import iconSpringBoot from 'simple-icons/icons/springboot.svg?raw';
+import iconAstro from 'simple-icons/icons/astro.svg?raw';
+import iconShadcn from 'simple-icons/icons/shadcnui.svg?raw';
 
 interface Project {
 	title: string;
-	year: string;
 	description: string;
 	stack: string[];
 	github?: string;
-	live?: string;
 }
+
+const stripTitle = (svg: string) => svg.replace(/<title>.*?<\/title>/, '');
+
+const techIcons: Record<string, string> = {
+	'Next.js': stripTitle(iconNextjs),
+	'Better-Auth': stripTitle(iconBetterAuth),
+	PostgreSQL: stripTitle(iconPostgresql),
+	MySQL: stripTitle(iconMysql),
+	Prisma: stripTitle(iconPrisma),
+	Laravel: stripTitle(iconLaravel),
+	React: stripTitle(iconReact),
+	Inertia: stripTitle(iconInertia),
+	'Shadcn UI': stripTitle(iconShadcn),
+	'Spring Boot': stripTitle(iconSpringBoot),
+	'Astro.js': stripTitle(iconAstro),
+};
 
 const projects: Project[] = [
 	{
-		title: 'Nimbus',
-		year: '2025',
+		title: 'Next.js Starter Template',
 		description:
-			'A self-hosted file sync service with end-to-end encryption, built as a lightweight alternative to third-party cloud storage for small teams.',
-		stack: ['Next.js', 'Node.js', 'PostgreSQL', 'AWS S3'],
-		github: 'https://github.com/mcecchini/nimbus',
-		live: 'https://nimbus.example.com',
+			'A boilerplate template for kicking off new projects fast, wired up with Better-Auth for authentication and a PostgreSQL database out of the box.',
+		stack: ['Next.js', 'Better-Auth', 'PostgreSQL'],
+		github: 'https://github.com/MicrowebPG/nextjs-template',
 	},
 	{
-		title: 'PulseBoard',
-		year: '2024',
+		title: 'Fitness Platform',
 		description:
-			'A realtime analytics dashboard streaming live metrics over WebSockets, backed by a Redis pub/sub layer for sub-second updates.',
-		stack: ['React', 'Node.js', 'Redis', 'WebSockets'],
-		github: 'https://github.com/mcecchini/pulseboard',
-		live: 'https://pulseboard.example.com',
+			'A content management system for building questionnaires and generating reports, designed to let non-technical staff publish and analyze surveys.',
+		stack: ['Next.js', 'MySQL', 'Prisma'],
 	},
 	{
-		title: 'Forma',
-		year: '2024',
+		title: 'Parcel Dashboard',
 		description:
-			'A headless CMS starter kit for freelancers, pairing a Laravel API with a Vue admin panel and role-based access control.',
-		stack: ['Laravel', 'MySQL', 'Vue'],
-		github: 'https://github.com/mcecchini/forma',
+			'A shipment tracking dashboard for monitoring parcels in transit, built with a component-driven admin UI and a type-safe data layer.',
+		stack: ['Next.js', 'Prisma', 'Shadcn UI'],
 	},
 	{
-		title: 'Codex CLI',
-		year: '2023',
+		title: 'E-Learning Platform',
 		description:
-			'An open-source command-line tool that scaffolds full-stack starter templates in seconds, built to speed up my own project setup.',
-		stack: ['TypeScript', 'Node.js', 'Commander'],
-		github: 'https://github.com/mcecchini/codex-cli',
+			'A course and user management system pairing a Laravel backend with a React front end via Inertia, for managing enrollments and content.',
+		stack: ['Laravel', 'React', 'Inertia'],
+	},
+	{
+		title: 'Events Management',
+		description:
+			'A platform for managing events, selling tickets, scheduling, and generate QR codes for attendees.',
+		stack: ['Spring Boot', 'PostgreSQL', 'Astro.js'],
 	},
 ];
 ---
@@ -61,22 +82,30 @@ const projects: Project[] = [
 							{String(i + 1).padStart(2, '0')}
 						</span>
 
-						<div class='md:col-span-7'>
-							<div class='mb-2 flex flex-wrap items-center gap-3'>
-								<h3 class='text-xl font-bold transition-colors group-hover:text-primary md:text-2xl'>
-									{project.title}
-								</h3>
-								<span class='font-display text-xs text-muted'>{project.year}</span>
-							</div>
+						<div class='md:col-span-8'>
+							<h3 class='mb-2 text-xl font-bold transition-colors group-hover:text-primary md:text-2xl'>
+								{project.title}
+							</h3>
 							<p class='max-w-md text-sm leading-relaxed text-muted md:text-base'>
 								{project.description}
 							</p>
 						</div>
 
-						<div class='mt-4 flex flex-wrap gap-2 md:col-span-3 md:mt-0'>
+						<div class='mt-4 flex items-center gap-3 md:col-span-2 md:mt-0'>
 							{project.stack.map((tech) => (
-								<span class='rounded border border-secondary/20 px-2 py-1 font-display text-[11px] uppercase tracking-wider text-secondary'>
-									{tech}
+								<span
+									class='tech-icon group/tech relative inline-flex text-secondary transition-colors duration-300 hover:text-secondary/80 [&>svg]:block [&>svg]:h-4.5 [&>svg]:w-4.5 [&>svg]:fill-current'
+									tabindex='0'
+								>
+									<Fragment set:html={techIcons[tech]} />
+									<span class='sr-only'>{tech}</span>
+									<span
+										role='tooltip'
+										aria-hidden='true'
+										class='pointer-events-none absolute -top-8 left-1/2 z-20 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded border border-secondary/20 bg-background px-2 py-1 font-display text-[10px] uppercase tracking-wider text-secondary opacity-0 shadow-lg shadow-black/30 transition-all duration-200 group-hover/tech:translate-y-0 group-hover/tech:opacity-100 group-focus-visible/tech:translate-y-0 group-focus-visible/tech:opacity-100'
+									>
+										{tech}
+									</span>
 								</span>
 							))}
 						</div>
@@ -93,21 +122,6 @@ const projects: Project[] = [
 									<GithubLogo width={20} height={20} />
 								</a>
 							)}
-							{project.live && (
-								<a
-									href={project.live}
-									target='_blank'
-									rel='noopener noreferrer'
-									aria-label={`View live demo of ${project.title}`}
-									class='text-muted transition-colors hover:text-primary'
-								>
-									<ArrowUpRight
-										width={20}
-										height={20}
-										class='transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5'
-									/>
-								</a>
-							)}
 						</div>
 					</li>
 				))
@@ -115,6 +129,7 @@ const projects: Project[] = [
 		</ul>
 	</div>
 </section>
+
 <script>
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
