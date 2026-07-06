@@ -1,17 +1,70 @@
-<section class='h-screen flex'>
-	<div class='self-end flex flex-col-reverse lg:flex-col gap-4 md:max-w-[80%] my-auto lg:my-4 py-8'>
-		<p id='hero-sub' class='text-muted [&_strong]:text-body-text text-sm sm:text-lg opacity-0'>
+<section id='hero' class='relative flex min-h-screen flex-col justify-between overflow-hidden py-6'>
+	<div class='hero-grid pointer-events-none absolute inset-0 -z-10' aria-hidden='true'></div>
+	<div
+		class='pointer-events-none absolute -top-40 -left-40 -z-10 h-96 w-96 rounded-full bg-primary/10 blur-[120px]'
+		aria-hidden='true'
+	>
+	</div>
+	<div
+		class='pointer-events-none absolute -right-40 -bottom-40 -z-10 h-96 w-96 rounded-full bg-secondary/10 blur-[120px]'
+		aria-hidden='true'
+	>
+	</div>
+
+	<div class='pointer-events-none absolute inset-4 sm:inset-6' aria-hidden='true'>
+		<span class='border-body-text/20 absolute top-0 left-0 h-4 w-4 border-t border-l'></span>
+		<span class='border-body-text/20 absolute top-0 right-0 h-4 w-4 border-t border-r'></span>
+		<span class='border-body-text/20 absolute bottom-0 left-0 h-4 w-4 border-b border-l'></span>
+		<span class='border-body-text/20 absolute right-0 bottom-0 h-4 w-4 border-r border-b'></span>
+	</div>
+
+	<div class='my-auto flex flex-col-reverse gap-4 py-8 px-8 md:max-w-[85%] lg:flex-col'>
+		<p id='hero-sub' class='text-muted [&_strong]:text-body-text text-sm opacity-0 sm:text-lg'>
 			Turning ideas into <strong>real web products</strong>.
 		</p>
 		<h1
 			id='hero-title'
-			class='text-4xl sm:text-6xl md:text-8xl lg:text-[100px]/[120px] mt-1 overflow-hidden'
+			class='mt-1 overflow-hidden text-4xl sm:text-6xl md:text-8xl lg:text-[100px]/[120px]'
 			aria-label='Full-Stack Developer building for the modern web'
 		>
-			Full-Stack Developer building for the modern web
+			<span aria-hidden='true'
+				>Full-Stack Developer building for the <span class='text-primary'>modern web</span></span
+			>
 		</h1>
 	</div>
 </section>
+
+<style>
+	.hero-grid {
+		background-image:
+			linear-gradient(rgba(255, 229, 218, 0.05) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(255, 229, 218, 0.05) 1px, transparent 1px);
+		background-size: 40px 40px;
+		mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+	}
+
+	.hero-scroll-dot {
+		top: -8px;
+		animation: hero-scroll-dot 1.8s ease-in-out infinite;
+	}
+
+	@keyframes hero-scroll-dot {
+		0% {
+			top: -8px;
+			opacity: 0;
+		}
+		15% {
+			opacity: 1;
+		}
+		85% {
+			opacity: 1;
+		}
+		100% {
+			top: 100%;
+			opacity: 0;
+		}
+	}
+</style>
 
 <script>
 	import { gsap } from 'gsap';
@@ -21,6 +74,7 @@
 
 	const title = document.getElementById('hero-title') as HTMLElement;
 	const sub = document.getElementById('hero-sub') as HTMLElement;
+	//const footer = document.getElementById('hero-footer') as HTMLElement;
 
 	const split = new SplitText(title, { type: 'chars,words' });
 
@@ -30,6 +84,6 @@
 		y: '110%',
 		opacity: 0,
 		duration: 0.8,
-		stagger: 0.025,
 	}).to(sub, { opacity: 1, duration: 0.6 }, '-=0.3');
+	//.to(footer, { opacity: 1, duration: 0.5 }, '-=0.3');
 </script>

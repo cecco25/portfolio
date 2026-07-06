@@ -22,10 +22,6 @@
     margin: 0;
   }
 
-  body {
-    padding: 1rem;
-  }
-
   #smooth-wrapper {
     width: 100%;
     overflow: hidden;
@@ -33,7 +29,6 @@
 
   #smooth-content {
     width: 100%;
-    padding: 1rem;
   }
 
   .title {

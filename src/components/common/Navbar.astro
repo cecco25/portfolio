@@ -2,15 +2,15 @@
 import Link from '@components/ui/link.vue';
 
 const links = [
-	{ href: '#projects', label: 'Projects', cta: false },
 	{ href: '#about', label: 'About', cta: false },
+	{ href: '#projects', label: 'Projects', cta: false },
 	{ href: '#contact', label: 'Contact', cta: false },
 	{ href: '/resume.pdf', label: 'Resume', cta: true },
 ];
 ---
 
-<header class='w-full'>
-	<nav class='flex flex-col md:flex-row w-full md:items-center justify-between'>
+<header class='border-body-text/10 w-full border-b px-4 py-4'>
+	<nav class='flex flex-col w-full md:flex-row md:items-center justify-between'>
 		<a
 			href='/'
 			class='font-display text-2xl tracking-tighter text-primary hover:underline transition-colors'

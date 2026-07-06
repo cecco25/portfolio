@@ -70,7 +70,7 @@ const projects: Project[] = [
 ];
 ---
 
-<section id='projects' class='section py-16'>
+<section id='projects' class='section py-16 px-8'>
 	<div class='max-w-5xl mx-auto w-full' id='projects-content'>
 		<h2 class='title'>Projects</h2>
 
@@ -140,16 +140,14 @@ const projects: Project[] = [
 
 	gsap.fromTo(
 		rows,
-		{ opacity: 0, y: 40 },
+		{ opacity: 0, x: 24 },
 		{
 			opacity: 1,
-			y: 0,
-			stagger: 0.12,
-			duration: 0.6,
-			ease: 'power2.out',
+			x: 0,
+			stagger: 0.08,
 			scrollTrigger: {
 				trigger: '#projects-content',
-				start: 'top 85%',
+				start: 'top 80%',
 				end: 'top 30%',
 				scrub: true,
 			},
