@@ -23,22 +23,18 @@ import GridBg from '../ui/grid-bg.vue';
 
 <script>
 	import { gsap } from 'gsap';
-	import { SplitText } from 'gsap/SplitText';
-
-	gsap.registerPlugin(SplitText);
+	import { splitTitleChars } from '@lib/split-title';
 
 	const title = document.getElementById('hero-title') as HTMLElement;
 	const sub = document.getElementById('hero-sub') as HTMLElement;
-	//const footer = document.getElementById('hero-footer') as HTMLElement;
 
-	const split = new SplitText(title, { type: 'chars,words' });
+	const chars = splitTitleChars(title);
 
 	const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-	tl.from(split.chars, {
+	tl.from(chars, {
 		y: '110%',
 		opacity: 0,
 		duration: 0.8,
 	}).to(sub, { opacity: 1, duration: 0.6 }, '-=0.3');
-	//.to(footer, { opacity: 1, duration: 0.5 }, '-=0.3');
 </script>

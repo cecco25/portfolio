@@ -131,26 +131,7 @@ const projects: Project[] = [
 </section>
 
 <script>
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { revealSection } from '@lib/scroll-reveal';
 
-	gsap.registerPlugin(ScrollTrigger);
-
-	const rows = gsap.utils.toArray<HTMLElement>('.project-row');
-
-	gsap.fromTo(
-		rows,
-		{ opacity: 0, x: 24 },
-		{
-			opacity: 1,
-			x: 0,
-			stagger: 0.08,
-			scrollTrigger: {
-				trigger: '#projects-content',
-				start: 'top 80%',
-				end: 'top 30%',
-				scrub: true,
-			},
-		},
-	);
+	revealSection({ containerSelector: '#projects-content', rowSelector: '.project-row' });
 </script>

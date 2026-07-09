@@ -127,41 +127,7 @@ const links: ContactLink[] = [
 </section>
 
 <script>
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
+	import { revealSection } from '@lib/scroll-reveal';
 
-	const contactContent = document.getElementById('contact-content') as HTMLElement;
-	const rows = gsap.utils.toArray<HTMLElement>('.contact-row');
-
-	gsap.fromTo(
-		contactContent,
-		{ opacity: 0, y: 50 },
-		{
-			opacity: 1,
-			y: 0,
-			scrollTrigger: {
-				trigger: contactContent,
-				start: 'top 90%',
-				end: 'top 50%',
-				scrub: true,
-			},
-		},
-	);
-
-	gsap.fromTo(
-		rows,
-		{ opacity: 0, x: 24 },
-		{
-			opacity: 1,
-			x: 0,
-			stagger: 0.08,
-			scrollTrigger: {
-				trigger: contactContent,
-				start: 'top 80%',
-				end: 'top 30%',
-				scrub: true,
-			},
-		},
-	);
+	revealSection({ containerSelector: '#contact-content', rowSelector: '.contact-row' });
 </script>

@@ -131,41 +131,7 @@ const categories: Category[] = [
 </section>
 
 <script>
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
+	import { revealSection } from '@lib/scroll-reveal';
 
-	const skillsContent = document.getElementById('skills-content') as HTMLElement;
-	const rows = gsap.utils.toArray<HTMLElement>('.skills-row');
-
-	gsap.fromTo(
-		skillsContent,
-		{ opacity: 0, y: 50 },
-		{
-			opacity: 1,
-			y: 0,
-			scrollTrigger: {
-				trigger: skillsContent,
-				start: 'top 90%',
-				end: 'top 50%',
-				scrub: true,
-			},
-		},
-	);
-
-	gsap.fromTo(
-		rows,
-		{ opacity: 0, x: 24 },
-		{
-			opacity: 1,
-			x: 0,
-			stagger: 0.08,
-			scrollTrigger: {
-				trigger: skillsContent,
-				start: 'top 80%',
-				end: 'top 30%',
-				scrub: true,
-			},
-		},
-	);
+	revealSection({ containerSelector: '#skills-content', rowSelector: '.skills-row' });
 </script>

@@ -64,21 +64,19 @@ const badges = [
 
 <script>
 	import { gsap } from 'gsap';
-	import { SplitText } from 'gsap/SplitText';
-
-	gsap.registerPlugin(SplitText);
+	import { splitTitleChars } from '@lib/split-title';
 
 	const title = document.getElementById('about-title') as HTMLElement;
 	const eyebrow = document.getElementById('about-eyebrow') as HTMLElement;
 	const sub = document.getElementById('about-sub') as HTMLElement;
 	const badges = document.getElementById('about-badges') as HTMLElement;
 
-	const split = new SplitText(title, { type: 'chars,words' });
+	const chars = splitTitleChars(title);
 
 	const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
 	tl.to(eyebrow, { opacity: 1, duration: 0.5 })
-		.from(split.chars, { y: '110%', opacity: 0, duration: 0.8, stagger: 0.01 }, '-=0.2')
+		.from(chars, { y: '110%', opacity: 0, duration: 0.8, stagger: 0.01 }, '-=0.2')
 		.to(sub, { opacity: 1, duration: 0.6 }, '-=0.3')
 		.to(badges, { opacity: 1, duration: 0.6 }, '-=0.4');
 </script>

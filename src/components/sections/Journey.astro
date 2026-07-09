@@ -116,26 +116,19 @@ const items: JourneyItem[] = [
 <script>
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { revealSection } from '@lib/scroll-reveal';
 	gsap.registerPlugin(ScrollTrigger);
 
 	const journeyContent = document.getElementById('journey-content') as HTMLElement;
 	const lineFill = document.getElementById('journey-line-fill') as HTMLElement;
-	const rows = gsap.utils.toArray<HTMLElement>('.journey-item');
 
-	gsap.fromTo(
-		journeyContent,
-		{ opacity: 0, y: 50 },
-		{
-			opacity: 1,
-			y: 0,
-			scrollTrigger: {
-				trigger: journeyContent,
-				start: 'top 90%',
-				end: 'top 50%',
-				scrub: true,
-			},
-		},
-	);
+	revealSection({
+		containerSelector: '#journey-content',
+		rowSelector: '.journey-item',
+		rowStagger: 0.12,
+		rowStart: 'top 75%',
+		rowEnd: 'bottom 60%',
+	});
 
 	gsap.fromTo(
 		lineFill,
@@ -146,22 +139,6 @@ const items: JourneyItem[] = [
 				trigger: journeyContent,
 				start: 'top 75%',
 				end: 'bottom 70%',
-				scrub: true,
-			},
-		},
-	);
-
-	gsap.fromTo(
-		rows,
-		{ opacity: 0, x: 24 },
-		{
-			opacity: 1,
-			x: 0,
-			stagger: 0.12,
-			scrollTrigger: {
-				trigger: journeyContent,
-				start: 'top 75%',
-				end: 'bottom 60%',
 				scrub: true,
 			},
 		},
