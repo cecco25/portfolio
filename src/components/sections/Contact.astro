@@ -1,0 +1,167 @@
+---
+import EnvelopeSimple from 'phosphor-astro/EnvelopeSimple.astro';
+import GithubLogo from 'phosphor-astro/GithubLogo.astro';
+import LinkedinLogo from 'phosphor-astro/LinkedinLogo.astro';
+import ArrowUpRight from 'phosphor-astro/ArrowUpRight.astro';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+
+interface ContactLink {
+	name: string;
+	href: string;
+	display: string;
+	icon: AstroComponentFactory;
+}
+
+const email = 'cecchinimichael.code@gmail.com';
+
+const links: ContactLink[] = [
+	{
+		name: 'GitHub',
+		href: 'https://github.com/cecco25',
+		display: 'github.com/cecco25',
+		icon: GithubLogo,
+	},
+	{
+		name: 'LinkedIn',
+		href: 'https://www.linkedin.com/in/michael-cecchini-747818353',
+		display: 'linkedin.com/in/michael-cecchini',
+		icon: LinkedinLogo,
+	},
+];
+---
+
+<section id='contact' class='section relative overflow-hidden px-8 py-16'>
+	<div
+		class='pointer-events-none absolute top-1/2 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[120px]'
+		aria-hidden='true'
+	>
+	</div>
+
+	<div class='pointer-events-none absolute inset-4 sm:inset-6' aria-hidden='true'>
+		<span class='border-body-text/20 absolute top-0 left-0 h-4 w-4 border-t border-l'></span>
+		<span class='border-body-text/20 absolute top-0 right-0 h-4 w-4 border-t border-r'></span>
+		<span class='border-body-text/20 absolute bottom-0 left-0 h-4 w-4 border-b border-l'></span>
+		<span class='border-body-text/20 absolute right-0 bottom-0 h-4 w-4 border-r border-b'></span>
+	</div>
+
+	<div class='mx-auto w-full max-w-5xl' id='contact-content'>
+		<h2 class='title'>Get In Touch</h2>
+
+		<div class='mt-8 grid gap-10 md:grid-cols-12 md:gap-14'>
+			<div class='md:col-span-7'>
+				<p class='leading-snug text-xl'>
+					<span class='font-display text-primary'>Got a project in mind?</span> I'm always open to discussing
+					new opportunities.
+				</p>
+
+				<a
+					href={`mailto:${email}`}
+					class='group mt-8 inline-flex items-baseline gap-2 border-b-2 border-primary/30 pb-2 transition-colors hover:border-primary'
+					title={`Email: ${email}`}
+				>
+					<span
+						class='font-display sm:text-xl leading-none font-bold break-all text-body-text transition-colors group-hover:text-primary hidden sm:inline'
+					>
+						{email}
+					</span>
+					<span
+						class='font-display leading-none font-bold break-all text-body-text transition-colors group-hover:text-primary sm:hidden'
+					>
+						Send a Message
+					</span>
+					<ArrowUpRight
+						width={24}
+						height={24}
+						class='shrink-0 -translate-y-1 text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-2'
+					/>
+				</a>
+			</div>
+
+			<div class='md:col-span-5'>
+				<h3 class='mb-2 font-display tracking-wide text-secondary uppercase'>Social</h3>
+				<ul>
+					{
+						links.map((link, i) => {
+							const IconComponent = link.icon;
+
+							return (
+								<li class='contact-row group border-b border-body-text/10 py-2.5 last:border-b-0'>
+									<a
+										href={link.href}
+										target='_blank'
+										rel='noopener noreferrer'
+										class='flex items-center gap-4'
+									>
+										<span class='font-display text-xs text-body-text/30 transition-colors group-hover:text-primary'>
+											{String(i + 1).padStart(2, '0')}
+										</span>
+										<IconComponent width={18} height={18} class='shrink-0 text-secondary' />
+										<span class='transition-colors group-hover:text-primary'>{link.name}</span>
+										<span
+											class='ml-auto hidden font-display text-xs truncate text-body-text/30 transition-colors group-hover:text-primary sm:inline'
+											title={link.display}
+										>
+											{link.display}
+										</span>
+										<ArrowUpRight
+											width={14}
+											height={14}
+											class='shrink-0 text-body-text/30 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary'
+										/>
+									</a>
+								</li>
+							);
+						})
+					}
+				</ul>
+
+				<div
+					class='mt-10 flex items-center gap-3 font-display text-xs tracking-widest text-muted uppercase'
+				>
+					<EnvelopeSimple width={14} height={14} />
+					<span>Based in Perugia, Italy — open to remote work</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	gsap.registerPlugin(ScrollTrigger);
+
+	const contactContent = document.getElementById('contact-content') as HTMLElement;
+	const rows = gsap.utils.toArray<HTMLElement>('.contact-row');
+
+	gsap.fromTo(
+		contactContent,
+		{ opacity: 0, y: 50 },
+		{
+			opacity: 1,
+			y: 0,
+			scrollTrigger: {
+				trigger: contactContent,
+				start: 'top 90%',
+				end: 'top 50%',
+				scrub: true,
+			},
+		},
+	);
+
+	gsap.fromTo(
+		rows,
+		{ opacity: 0, x: 24 },
+		{
+			opacity: 1,
+			x: 0,
+			stagger: 0.08,
+			scrollTrigger: {
+				trigger: contactContent,
+				start: 'top 80%',
+				end: 'top 30%',
+				scrub: true,
+			},
+		},
+	);
+</script>
