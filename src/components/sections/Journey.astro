@@ -1,0 +1,169 @@
+---
+import GraduationCap from 'phosphor-astro/GraduationCap.astro';
+import Briefcase from 'phosphor-astro/Briefcase.astro';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+
+interface JourneyItem {
+	type: 'education' | 'experience';
+	period: string;
+	title: string;
+	org: string;
+	description?: string;
+	icon: AstroComponentFactory;
+}
+
+const items: JourneyItem[] = [
+	{
+		type: 'education',
+		period: '2018 — 2023',
+		title: 'High School Diploma · Computer Science',
+		org: 'IIS Franchetti-Salviani · 100/100',
+		icon: GraduationCap,
+	},
+	{
+		type: 'education',
+		period: '2023 — Present',
+		title: 'BSc in Computer Science',
+		org: 'University of Perugia',
+		icon: GraduationCap,
+	},
+	{
+		type: 'experience',
+		period: '2023 — Present',
+		title: 'Full Stack Web Developer',
+		org: 'MicrowebPG',
+		description:
+			'Building web apps with Next.js, Tailwind CSS, and Prisma/Drizzle ORMs — using GitHub and Notion to follow team workflows and maintain code quality.',
+		icon: Briefcase,
+	},
+	{
+		type: 'experience',
+		period: 'Dec 2025 — Jan 2026',
+		title: 'Student Intern',
+		org: 'IIS Franchetti-Salviani · Stage',
+		description:
+			'Contributed to the "Digital Arnia" project, building a web app with React and Vite.',
+		icon: Briefcase,
+	},
+];
+---
+
+<section id='journey' class='px-8 py-16 md:py-24'>
+	<div class='mx-auto w-full max-w-4xl' id='journey-content'>
+		<h2 class='title'>My Journey</h2>
+		<p class='max-w-2xl text-muted'>
+			From my first lines of code in high school to building production applications today.
+		</p>
+
+		<div class='relative mt-14'>
+			<div class='absolute top-2 bottom-2 left-5 w-px bg-body-text/10 md:left-6' aria-hidden='true'>
+			</div>
+			<div
+				id='journey-line-fill'
+				class='absolute top-2 bottom-2 left-5 w-px origin-top bg-linear-to-b from-secondary to-primary md:left-6'
+				aria-hidden='true'
+			>
+			</div>
+
+			<ol class='relative flex flex-col gap-12'>
+				{
+					items.map((item) => {
+						const IconComponent = item.icon;
+						const accent =
+							item.type === 'education'
+								? 'text-secondary border-secondary'
+								: 'text-primary border-primary';
+
+						return (
+							<li class='journey-item relative flex gap-6 md:gap-8'>
+								<div
+									class={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 bg-background md:h-12 md:w-12 ${accent}`}
+								>
+									<IconComponent width={18} height={18} />
+								</div>
+
+								<div class='flex-1 pt-1 pb-1'>
+									<div class='flex flex-wrap items-center gap-x-3 gap-y-1'>
+										<span
+											class={`font-display text-xs tracking-widest uppercase ${item.type === 'education' ? 'text-secondary' : 'text-primary'}`}
+										>
+											{item.type}
+										</span>
+										<span class='text-body-text/20' aria-hidden='true'>
+											·
+										</span>
+										<span class='font-display text-xs text-body-text/50'>{item.period}</span>
+									</div>
+
+									<h3 class='mt-1.5 text-lg font-bold text-body-text md:text-xl'>{item.title}</h3>
+									<p class='text-sm text-secondary/80 md:text-base'>{item.org}</p>
+
+									{item.description && (
+										<p class='mt-2 max-w-xl text-sm leading-relaxed text-muted'>
+											{item.description}
+										</p>
+									)}
+								</div>
+							</li>
+						);
+					})
+				}
+			</ol>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	gsap.registerPlugin(ScrollTrigger);
+
+	const journeyContent = document.getElementById('journey-content') as HTMLElement;
+	const lineFill = document.getElementById('journey-line-fill') as HTMLElement;
+	const rows = gsap.utils.toArray<HTMLElement>('.journey-item');
+
+	gsap.fromTo(
+		journeyContent,
+		{ opacity: 0, y: 50 },
+		{
+			opacity: 1,
+			y: 0,
+			scrollTrigger: {
+				trigger: journeyContent,
+				start: 'top 90%',
+				end: 'top 50%',
+				scrub: true,
+			},
+		},
+	);
+
+	gsap.fromTo(
+		lineFill,
+		{ scaleY: 0 },
+		{
+			scaleY: 1,
+			scrollTrigger: {
+				trigger: journeyContent,
+				start: 'top 75%',
+				end: 'bottom 70%',
+				scrub: true,
+			},
+		},
+	);
+
+	gsap.fromTo(
+		rows,
+		{ opacity: 0, x: 24 },
+		{
+			opacity: 1,
+			x: 0,
+			stagger: 0.12,
+			scrollTrigger: {
+				trigger: journeyContent,
+				start: 'top 75%',
+				end: 'bottom 60%',
+				scrub: true,
+			},
+		},
+	);
+</script>
