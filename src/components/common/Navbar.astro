@@ -39,38 +39,3 @@ const links = [
 		</div>
 	</nav>
 </header>
-
-<script>
-	const toggle = document.querySelector('#menu-toggle');
-	const panel = document.querySelector('#menu-panel');
-
-	if (toggle && panel) {
-		toggle.addEventListener('click', () => {
-			const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-			toggle.setAttribute('aria-expanded', String(!isOpen));
-			panel.setAttribute('data-open', String(!isOpen));
-
-			if (!isOpen) {
-				panel.classList.remove('hidden');
-			} else {
-				panel.classList.add('hidden');
-			}
-		});
-
-		const mediaQuery = window.matchMedia('(min-width: 768px)');
-		const syncMenuState = () => {
-			if (mediaQuery.matches) {
-				panel.classList.remove('hidden');
-				panel.setAttribute('data-open', 'true');
-				toggle.setAttribute('aria-expanded', 'true');
-			} else {
-				panel.classList.add('hidden');
-				panel.setAttribute('data-open', 'false');
-				toggle.setAttribute('aria-expanded', 'false');
-			}
-		};
-
-		syncMenuState();
-		mediaQuery.addEventListener('change', syncMenuState);
-	}
-</script>
