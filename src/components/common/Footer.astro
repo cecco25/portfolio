@@ -1,0 +1,63 @@
+---
+import EnvelopeSimple from 'phosphor-astro/EnvelopeSimple.astro';
+import GithubLogo from 'phosphor-astro/GithubLogo.astro';
+import LinkedinLogo from 'phosphor-astro/LinkedinLogo.astro';
+import ArrowUp from 'phosphor-astro/ArrowUp.astro';
+
+const email = 'cecchinimichael.code@gmail.com';
+const year = new Date().getFullYear();
+
+const socials = [
+	{ name: 'Email', href: `mailto:${email}`, icon: EnvelopeSimple },
+	{ name: 'GitHub', href: 'https://github.com/cecco25', icon: GithubLogo },
+	{
+		name: 'LinkedIn',
+		href: 'https://www.linkedin.com/in/michael-cecchini-747818353',
+		icon: LinkedinLogo,
+	},
+];
+---
+
+<footer class='border-body-text/10 border-t px-4 py-6 md:px-8'>
+	<div class='mx-auto flex flex-col sm:flex-row max-w-6xl items-center justify-between gap-4'>
+		<p class='font-display text-xs tracking-widest text-body-text/40 uppercase'>
+			&copy; {year} Michael Cecchini
+		</p>
+
+		<div class='flex items-center gap-5'>
+			{
+				socials.map((social) => {
+					const IconComponent = social.icon;
+
+					return (
+						<a
+							href={social.href}
+							target={social.name === 'Email' ? undefined : '_blank'}
+							rel={social.name === 'Email' ? undefined : 'noopener noreferrer'}
+							aria-label={social.name}
+							class='text-muted transition-colors hover:text-primary'
+							title={social.name}
+						>
+							<IconComponent width={16} height={16} />
+						</a>
+					);
+				})
+			}
+
+			<span class='border-body-text/10 h-4 w-px border-l' aria-hidden='true'></span>
+
+			<a
+				href='#hero'
+				aria-label='Back to top'
+				class='group text-muted transition-colors hover:text-primary'
+				title='Back to top'
+			>
+				<ArrowUp
+					width={16}
+					height={16}
+					class='transition-transform duration-300 group-hover:-translate-y-1'
+				/>
+			</a>
+		</div>
+	</div>
+</footer>

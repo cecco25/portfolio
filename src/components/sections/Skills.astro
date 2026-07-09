@@ -1,0 +1,171 @@
+---
+import iconReact from 'simple-icons/icons/react.svg?raw';
+import iconNextjs from 'simple-icons/icons/nextdotjs.svg?raw';
+import iconTailwind from 'simple-icons/icons/tailwindcss.svg?raw';
+import iconHtml5 from 'simple-icons/icons/html5.svg?raw';
+import iconCss3 from 'simple-icons/icons/css.svg?raw';
+import iconVite from 'simple-icons/icons/vite.svg?raw';
+import iconShadcn from 'simple-icons/icons/shadcnui.svg?raw';
+import iconAngular from 'simple-icons/icons/angular.svg?raw';
+import iconAstro from 'simple-icons/icons/astro.svg?raw';
+import iconLaravel from 'simple-icons/icons/laravel.svg?raw';
+import iconPhp from 'simple-icons/icons/php.svg?raw';
+import iconNodejs from 'simple-icons/icons/nodedotjs.svg?raw';
+import iconPrisma from 'simple-icons/icons/prisma.svg?raw';
+import iconDrizzle from 'simple-icons/icons/drizzle.svg?raw';
+import iconSpringBoot from 'simple-icons/icons/springboot.svg?raw';
+import iconPostgresql from 'simple-icons/icons/postgresql.svg?raw';
+import iconMysql from 'simple-icons/icons/mysql.svg?raw';
+import iconMongodb from 'simple-icons/icons/mongodb.svg?raw';
+import iconDocker from 'simple-icons/icons/docker.svg?raw';
+import iconGit from 'simple-icons/icons/git.svg?raw';
+import iconGithub from 'simple-icons/icons/github.svg?raw';
+import iconNotion from 'simple-icons/icons/notion.svg?raw';
+import iconTypescript from 'simple-icons/icons/typescript.svg?raw';
+import iconJavascript from 'simple-icons/icons/javascript.svg?raw';
+import iconJava from 'simple-icons/icons/openjdk.svg?raw';
+import iconCplusplus from 'simple-icons/icons/cplusplus.svg?raw';
+import iconSharp from 'simple-icons/icons/sharp.svg?raw';
+
+interface Skill {
+	name: string;
+	icon?: string;
+}
+
+interface Category {
+	name: string;
+	skills: Skill[];
+}
+
+const stripTitle = (svg: string) => svg.replace(/<title>.*?<\/title>/, '');
+
+const categories: Category[] = [
+	{
+		name: 'Frontend',
+		skills: [
+			{ name: 'React', icon: iconReact },
+			{ name: 'Next.js', icon: iconNextjs },
+			{ name: 'Tailwind CSS', icon: iconTailwind },
+			{ name: 'Astro.js', icon: iconAstro },
+			{ name: 'Angular', icon: iconAngular },
+			{ name: 'Shadcn UI', icon: iconShadcn },
+			{ name: 'Vite', icon: iconVite },
+			{ name: 'HTML', icon: iconHtml5 },
+			{ name: 'CSS', icon: iconCss3 },
+		],
+	},
+	{
+		name: 'Backend',
+		skills: [
+			{ name: 'Node.js', icon: iconNodejs },
+			{ name: 'Laravel', icon: iconLaravel },
+			{ name: 'Spring Boot', icon: iconSpringBoot },
+			{ name: 'PHP', icon: iconPhp },
+			{ name: 'Prisma ORM', icon: iconPrisma },
+			{ name: 'Drizzle ORM', icon: iconDrizzle },
+		],
+	},
+	{
+		name: 'Databases',
+		skills: [
+			{ name: 'PostgreSQL', icon: iconPostgresql },
+			{ name: 'MySQL', icon: iconMysql },
+			{ name: 'MongoDB', icon: iconMongodb },
+		],
+	},
+	{
+		name: 'Languages',
+		skills: [
+			{ name: 'TypeScript', icon: iconTypescript },
+			{ name: 'JavaScript', icon: iconJavascript },
+			{ name: 'Java', icon: iconJava },
+			{ name: 'C++', icon: iconCplusplus },
+			{ name: 'C#', icon: iconSharp },
+		],
+	},
+	{
+		name: 'Tools',
+		skills: [
+			{ name: 'Docker', icon: iconDocker },
+			{ name: 'Git', icon: iconGit },
+			{ name: 'GitHub', icon: iconGithub },
+			{ name: 'Notion', icon: iconNotion },
+		],
+	},
+];
+---
+
+<section id='skills' class='section py-16 px-8'>
+	<div class='mx-auto w-full max-w-5xl' id='skills-content'>
+		<h2 class='title'>Skills</h2>
+
+		<p class='max-w-2xl text-muted'>
+			The languages, frameworks, and tools I've learned and used over the years.
+		</p>
+
+		<div class='mt-10 space-y-8'>
+			{
+				categories.map((category, i) => (
+					<div class='skills-row group'>
+						<div class='mb-4 flex items-baseline gap-4'>
+							<span class='font-display text-xs text-body-text/30 transition-colors group-hover:text-primary'>
+								{String(i + 1).padStart(2, '0')}
+							</span>
+							<h3 class='font-display tracking-widest text-secondary uppercase'>{category.name}</h3>
+							<span class='h-px flex-1 bg-body-text/10' />
+						</div>
+
+						<ul class='flex flex-wrap gap-3 sm:pl-9'>
+							{category.skills.map((skill) => (
+								<li class='skill-pill inline-flex items-center gap-2 rounded-full border border-body-text/10 px-4 py-2 text-sm text-body-text/80 transition-colors duration-300 hover:border-primary/40 hover:text-primary [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:shrink-0 [&_svg]:fill-secondary [&_svg]:transition-colors [&_svg]:duration-300 [&:hover_svg]:fill-primary'>
+									{skill.icon && <Fragment set:html={stripTitle(skill.icon)} />}
+									<span class='cursor-default'>{skill.name}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	gsap.registerPlugin(ScrollTrigger);
+
+	const skillsContent = document.getElementById('skills-content') as HTMLElement;
+	const rows = gsap.utils.toArray<HTMLElement>('.skills-row');
+
+	gsap.fromTo(
+		skillsContent,
+		{ opacity: 0, y: 50 },
+		{
+			opacity: 1,
+			y: 0,
+			scrollTrigger: {
+				trigger: skillsContent,
+				start: 'top 90%',
+				end: 'top 50%',
+				scrub: true,
+			},
+		},
+	);
+
+	gsap.fromTo(
+		rows,
+		{ opacity: 0, x: 24 },
+		{
+			opacity: 1,
+			x: 0,
+			stagger: 0.08,
+			scrollTrigger: {
+				trigger: skillsContent,
+				start: 'top 80%',
+				end: 'top 30%',
+				scrub: true,
+			},
+		},
+	);
+</script>
