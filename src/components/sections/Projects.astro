@@ -19,7 +19,8 @@ interface Project {
 	github?: string;
 }
 
-const stripTitle = (svg: string) => svg.replace(/<title>.*?<\/title>/, '');
+const stripTitle = (svg: string) =>
+	svg.replace(/<title>.*?<\/title>/, '').replace('role="img"', 'aria-hidden="true"');
 
 const techIcons: Record<string, string> = {
 	'Next.js': stripTitle(iconNextjs),
@@ -102,7 +103,7 @@ const projects: Project[] = [
 									<span
 										role='tooltip'
 										aria-hidden='true'
-										class='pointer-events-none absolute -top-8 left-1/2 z-20 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded border border-secondary/20 bg-background px-2 py-1 font-display text-xs uppercase tracking-wider text-secondary opacity-0 shadow-lg shadow-black/30 transition-all duration-200 group-hover/tech:translate-y-0 group-hover/tech:opacity-100 group-focus-visible/tech:translate-y-0 group-focus-visible/tech:opacity-100'
+										class='pointer-events-none absolute -top-8 left-1/2 z-20 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded border border-secondary/20 bg-background px-2 py-1 font-display text-xs uppercase tracking-wider text-secondary opacity-0 shadow-lg shadow-black/30 transition-[transform,opacity] duration-200 group-hover/tech:translate-y-0 group-hover/tech:opacity-100 group-focus-visible/tech:translate-y-0 group-focus-visible/tech:opacity-100'
 									>
 										{tech}
 									</span>

@@ -13,6 +13,10 @@
 }
 
 @layer base {
+  html {
+    color-scheme: dark;
+  }
+
   html,
   body {
     background-color: var(--color-background);
@@ -29,6 +33,24 @@
 
   #smooth-content {
     width: 100%;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: -3rem;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    transition: top 0.2s ease;
+  }
+
+  .skip-link:focus-visible {
+    top: 1rem;
   }
 
   .title {

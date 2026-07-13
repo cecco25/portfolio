@@ -22,39 +22,47 @@ export function revealSection({
   const container = document.querySelector<HTMLElement>(containerSelector);
   if (!container) return;
 
-  gsap.fromTo(
-    container,
-    { opacity: 0, y: 50 },
-    {
-      opacity: 1,
-      y: 0,
-      scrollTrigger: {
-        trigger: container,
-        start: "top 90%",
-        end: "top 50%",
-        scrub: true,
+  const rows = rowSelector ? gsap.utils.toArray<HTMLElement>(rowSelector) : [];
+
+  const mm = gsap.matchMedia();
+
+  mm.add("(prefers-reduced-motion: reduce)", () => {
+    gsap.set(container, { opacity: 1, y: 0 });
+    if (rows.length) gsap.set(rows, { opacity: 1, x: 0 });
+  });
+
+  mm.add("(prefers-reduced-motion: no-preference)", () => {
+    gsap.fromTo(
+      container,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        scrollTrigger: {
+          trigger: container,
+          start: "top 90%",
+          end: "top 50%",
+          scrub: true,
+        },
       },
-    },
-  );
+    );
 
-  if (!rowSelector) return;
+    if (!rows.length) return;
 
-  const rows = gsap.utils.toArray<HTMLElement>(rowSelector);
-  if (!rows.length) return;
-
-  gsap.fromTo(
-    rows,
-    { opacity: 0, x: 24 },
-    {
-      opacity: 1,
-      x: 0,
-      stagger: rowStagger,
-      scrollTrigger: {
-        trigger: container,
-        start: rowStart,
-        end: rowEnd,
-        scrub: true,
+    gsap.fromTo(
+      rows,
+      { opacity: 0, x: 24 },
+      {
+        opacity: 1,
+        x: 0,
+        stagger: rowStagger,
+        scrollTrigger: {
+          trigger: container,
+          start: rowStart,
+          end: rowEnd,
+          scrub: true,
+        },
       },
-    },
-  );
+    );
+  });
 }

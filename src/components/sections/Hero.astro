@@ -28,13 +28,17 @@ import GridBg from '../ui/grid-bg.vue';
 	const title = document.getElementById('hero-title') as HTMLElement;
 	const sub = document.getElementById('hero-sub') as HTMLElement;
 
-	const chars = splitTitleChars(title);
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		gsap.set(sub, { opacity: 1 });
+	} else {
+		const chars = splitTitleChars(title);
 
-	const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+		const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-	tl.from(chars, {
-		y: '110%',
-		opacity: 0,
-		duration: 0.8,
-	}).to(sub, { opacity: 1, duration: 0.6 }, '-=0.3');
+		tl.from(chars, {
+			y: '110%',
+			opacity: 0,
+			duration: 0.8,
+		}).to(sub, { opacity: 1, duration: 0.6 }, '-=0.3');
+	}
 </script>

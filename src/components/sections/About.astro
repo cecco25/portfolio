@@ -34,14 +34,14 @@ const interests = icons.filter((icon) => icon.type === 'interest');
 		<div class='grid mt-8 gap-10 md:grid-cols-12 md:gap-16'>
 			<div class='md:col-span-7'>
 				<p class='text-xl leading-snug md:text-2xl'>
-					<span class='font-display text-primary'>Hi, I'm Michael Cecchini</span> — a junior full-stack
+					<span class='font-display text-primary'>Hi, I’m Michael Cecchini</span> — a junior full-stack
 					developer and computer science student at the University of Perugia.
 				</p>
 
 				<div class='mt-6 space-y-4 leading-relaxed text-muted'>
 					<p>
 						I am passionate about building modern web applications, working across both the frontend
-						and backend. Over the years, I've developed projects using modern technologies like
+						and backend. Over the years, I’ve developed projects using modern technologies like
 						React, Next.js, Laravel, and Node.js, while managing data with MySQL and PostgreSQL.
 					</p>
 					<p>
@@ -76,7 +76,7 @@ const interests = icons.filter((icon) => icon.type === 'interest');
 										<span class='font-display text-xs text-body-text/30 transition-colors group-hover:text-primary'>
 											{String(i + 1).padStart(2, '0')}
 										</span>
-										<IconComponent width={18} height={18} class='shrink-0 text-secondary' />
+										<IconComponent width={18} height={18} class='shrink-0 text-secondary' aria-hidden='true' />
 										<span class='transition-colors group-hover:text-primary'>{icon.name}</span>
 									</li>
 								);
@@ -97,7 +97,7 @@ const interests = icons.filter((icon) => icon.type === 'interest');
 										<span class='font-display text-xs text-body-text/30 transition-colors group-hover:text-primary'>
 											{String(i + 1).padStart(2, '0')}
 										</span>
-										<IconComponent width={18} height={18} class='shrink-0 text-secondary' />
+										<IconComponent width={18} height={18} class='shrink-0 text-secondary' aria-hidden='true' />
 										<span class='transition-colors group-hover:text-primary'>{icon.name}</span>
 									</li>
 								);

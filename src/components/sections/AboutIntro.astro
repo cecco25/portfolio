@@ -28,10 +28,10 @@ const badges = [
 		<h1
 			id='about-title'
 			class='mt-4 overflow-hidden text-4xl sm:text-5xl md:text-6xl lg:text-[68px]/[1.1]'
-			aria-label="Hi, I'm Michael — junior full-stack developer."
+			aria-label="Hi, I’m Michael — junior full-stack developer."
 		>
 			<span aria-hidden='true'
-				>Hi, I'm Michael — junior <span class='text-primary'>full-stack developer.</span></span
+				>Hi, I’m Michael — junior <span class='text-primary'>full-stack developer.</span></span
 			>
 		</h1>
 
@@ -39,10 +39,10 @@ const badges = [
 			id='about-sub'
 			class='mt-7 max-w-2xl text-base leading-relaxed text-muted opacity-0 md:text-lg'
 		>
-			I'm a junior full-stack developer and Computer Science student at the University of Perugia. I
+			I’m a junior full-stack developer and Computer Science student at the University of Perugia. I
 			like turning ideas into working products — across the frontend and backend — using React,
 			Next.js, Laravel, and Node.js, with PostgreSQL and MySQL doing the heavy lifting underneath.
-			Outside of coursework I build real-world apps and open-source starter templates, and I'm
+			Outside of coursework I build real-world apps and open-source starter templates, and I’m
 			always curious to learn new things.
 		</p>
 
@@ -52,7 +52,7 @@ const badges = [
 					const IconComponent = badge.icon;
 					return (
 						<span class='inline-flex items-center gap-2 rounded-full border border-body-text/10 px-4 py-2 text-sm text-body-text/80 [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:shrink-0 [&_svg]:text-secondary'>
-							<IconComponent width={14} height={14} />
+							<IconComponent width={14} height={14} aria-hidden='true' />
 							{badge.label}
 						</span>
 					);
@@ -71,12 +71,16 @@ const badges = [
 	const sub = document.getElementById('about-sub') as HTMLElement;
 	const badges = document.getElementById('about-badges') as HTMLElement;
 
-	const chars = splitTitleChars(title);
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		gsap.set([eyebrow, sub, badges], { opacity: 1 });
+	} else {
+		const chars = splitTitleChars(title);
 
-	const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+		const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-	tl.to(eyebrow, { opacity: 1, duration: 0.5 })
-		.from(chars, { y: '110%', opacity: 0, duration: 0.8, stagger: 0.01 }, '-=0.2')
-		.to(sub, { opacity: 1, duration: 0.6 }, '-=0.3')
-		.to(badges, { opacity: 1, duration: 0.6 }, '-=0.4');
+		tl.to(eyebrow, { opacity: 1, duration: 0.5 })
+			.from(chars, { y: '110%', opacity: 0, duration: 0.8, stagger: 0.01 }, '-=0.2')
+			.to(sub, { opacity: 1, duration: 0.6 }, '-=0.3')
+			.to(badges, { opacity: 1, duration: 0.6 }, '-=0.4');
+	}
 </script>

@@ -37,7 +37,8 @@ interface Category {
 	skills: Skill[];
 }
 
-const stripTitle = (svg: string) => svg.replace(/<title>.*?<\/title>/, '');
+const stripTitle = (svg: string) =>
+	svg.replace(/<title>.*?<\/title>/, '').replace('role="img"', 'aria-hidden="true"');
 
 const categories: Category[] = [
 	{
@@ -100,7 +101,7 @@ const categories: Category[] = [
 		<h2 class='title'>Skills</h2>
 
 		<p class='max-w-2xl text-muted'>
-			The languages, frameworks, and tools I've learned and used over the years.
+			The languages, frameworks, and tools I’ve learned and used over the years.
 		</p>
 
 		<div class='mt-10 space-y-8'>

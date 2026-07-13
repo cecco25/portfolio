@@ -15,16 +15,22 @@ const { title = "Michael Cecchini's Portfolio" } = Astro.props;
 	<head>
 		<meta charset='UTF-8' />
 		<meta name='viewport' content='width=device-width' />
+		<meta name='theme-color' content='#1f2329' />
+		<link rel='preconnect' href='https://fonts.googleapis.com' />
+		<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
 		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 		<link rel='icon' href='/favicon.ico' />
 		<meta name='generator' content={Astro.generator} />
 		<title>{title}</title>
 	</head>
 	<body>
+		<a href='#main-content' class='skip-link'>Skip to main content</a>
 		<div id='smooth-wrapper'>
 			<div id='smooth-content'>
 				<Navbar />
-				<slot />
+				<main id='main-content' tabindex='-1'>
+					<slot />
+				</main>
 				<Footer />
 			</div>
 		</div>
@@ -38,21 +44,33 @@ const { title = "Michael Cecchini's Portfolio" } = Astro.props;
 
 	gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 	const smoother = ScrollSmoother.create({
-		smooth: 2,
+		smooth: prefersReducedMotion ? 0 : 2,
 		effects: true,
 		smoothTouch: 0.1,
 	});
 
+	const scrollToTarget = (target: Element) => {
+		smoother.scrollTo(target, !prefersReducedMotion, 'top top');
+		if (target instanceof HTMLElement && target.hasAttribute('tabindex')) {
+			target.focus({ preventScroll: true });
+		}
+	};
+
 	if (window.location.hash) {
 		const initialTarget = document.querySelector(window.location.hash);
 		if (initialTarget) {
-			requestAnimationFrame(() => smoother.scrollTo(initialTarget, true, 'top top'));
+			requestAnimationFrame(() => scrollToTarget(initialTarget));
 		}
 	}
 
 	document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach((anchor) => {
 		anchor.addEventListener('click', (event) => {
+			if (event.defaultPrevented || event.button !== 0) return;
+			if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
 			const href = anchor.getAttribute('href');
 			if (!href) return;
 
@@ -67,7 +85,7 @@ const { title = "Michael Cecchini's Portfolio" } = Astro.props;
 			}
 
 			event.preventDefault();
-			smoother.scrollTo(target, true, 'top top');
+			scrollToTarget(target);
 			history.pushState(null, '', hash);
 		});
 	});
