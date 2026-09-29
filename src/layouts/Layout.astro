@@ -26,10 +26,7 @@ const personSchema = {
 		addressLocality: 'Perugia',
 		addressCountry: 'IT',
 	},
-	sameAs: [
-		'https://github.com/cecco25',
-		'https://www.linkedin.com/in/michael-cecchini-747818353',
-	],
+	sameAs: ['https://github.com/cecco25', 'https://www.linkedin.com/in/michael-cecchini-747818353'],
 };
 ---
 
@@ -64,7 +61,9 @@ const personSchema = {
 		<script type='application/ld+json' set:html={JSON.stringify(personSchema)} />
 	</head>
 	<body>
-		<a href='#main-content' class='skip-link'>Skip to main content</a>
+		<a href='#main-content' class='skip-link'>
+			Skip to main content
+		</a>
 		<div id='smooth-wrapper'>
 			<div id='smooth-content'>
 				<Navbar />
@@ -106,7 +105,7 @@ const personSchema = {
 		}
 	}
 
-	document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach((anchor) => {
+	document.querySelectorAll<HTMLAnchorElement>('a[href^="#"], a[href^="/#"]').forEach((anchor) => {
 		anchor.addEventListener('click', (event) => {
 			if (event.defaultPrevented || event.button !== 0) return;
 			if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
