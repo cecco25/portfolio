@@ -68,3 +68,96 @@
     mask-image: radial-gradient(ellipse at top, black 40%, transparent 85%);
   }
 }
+
+@layer components {
+  /* Typography for rendered case study markdown. */
+  .case-study {
+    counter-reset: cs-section;
+
+    & h2 {
+      counter-increment: cs-section;
+      @apply mt-16 mb-5 text-2xl/tight font-bold text-body-text first:mt-0;
+    }
+
+    & h2::before {
+      content: counter(cs-section, decimal-leading-zero) " —";
+      @apply mb-2 block font-display text-xs font-normal tracking-[0.15em] text-primary;
+    }
+
+    & h3 {
+      @apply mt-10 mb-3 text-lg font-bold text-body-text;
+    }
+
+    & p,
+    & li,
+    & td {
+      @apply leading-[1.8] text-muted;
+    }
+
+    & p + p {
+      @apply mt-5;
+    }
+
+    & strong {
+      @apply font-semibold text-body-text;
+    }
+
+    & a {
+      @apply text-secondary underline underline-offset-3;
+    }
+
+    & ul,
+    & ol {
+      @apply my-5 flex flex-col gap-2.5;
+    }
+
+    & ul > li {
+      @apply relative pl-6;
+    }
+
+    & ul > li::before {
+      content: "";
+      @apply absolute top-[0.75em] left-0 h-px w-2.5 bg-primary;
+    }
+
+    & ol {
+      @apply list-[decimal-leading-zero] pl-9;
+    }
+
+    & ol > li::marker {
+      @apply font-display text-[0.8em] text-secondary;
+    }
+
+    & code {
+      @apply rounded bg-body-text/6 px-1.5 py-0.5 font-display text-[0.85em] text-body-text;
+    }
+
+    & pre {
+      @apply my-8 overflow-x-auto rounded-lg border border-body-text/10 p-5 text-[0.8rem]/normal;
+    }
+
+    & pre code {
+      @apply bg-transparent p-0 text-[length:inherit];
+    }
+
+    & table {
+      @apply my-8 block border-collapse overflow-x-auto text-sm;
+    }
+
+    & th {
+      @apply border-b border-body-text/20 pr-4 pb-3 text-left font-display text-[0.7rem] font-normal tracking-[0.15em] text-body-text/40 uppercase;
+    }
+
+    & td {
+      @apply border-b border-body-text/8 py-3 pr-4 align-top leading-relaxed;
+    }
+
+    & td:first-child {
+      @apply whitespace-nowrap;
+    }
+
+    & img {
+      @apply my-8 rounded-lg border border-body-text/10;
+    }
+  }
+}

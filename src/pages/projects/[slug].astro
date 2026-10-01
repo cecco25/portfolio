@@ -1,0 +1,244 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import ArrowLeft from 'phosphor-astro/ArrowLeft.astro';
+import ArrowRight from 'phosphor-astro/ArrowRight.astro';
+import GraduationCap from 'phosphor-astro/GraduationCap.astro';
+import LockSimple from 'phosphor-astro/LockSimple.astro';
+import GridBg from '@components/ui/grid-bg.vue';
+import Layout from '@layouts/Layout.astro';
+import { techIcons } from '@lib/tech-icons';
+
+interface Props {
+	entry: CollectionEntry<'projects'>;
+	index: number;
+	total: number;
+	next: CollectionEntry<'projects'>;
+}
+
+export const getStaticPaths = (async () => {
+	const entries = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+	return entries.map((entry, index) => ({
+		params: { slug: entry.id },
+		props: {
+			entry,
+			index,
+			total: entries.length,
+			next: entries[(index + 1) % entries.length],
+		},
+	}));
+}) satisfies GetStaticPaths;
+
+const { entry, index, total, next } = Astro.props;
+const { title, description, kind, stack, role, type, timeline, outcomes } = entry.data;
+const { Content, headings } = await render(entry);
+
+const pad = (n: number) => String(n).padStart(2, '0');
+const sections = headings.filter((heading) => heading.depth === 2);
+
+const specs = [
+	{ label: 'Role', value: role },
+	{ label: 'Timeline', value: timeline },
+	{ label: 'Type', value: type },
+];
+---
+
+<Layout title={`${title} — Case Study · Michael Cecchini`} description={description}>
+	<section id='cs-hero' class='relative overflow-hidden px-8 pt-20 pb-16 md:pt-28 md:pb-24'>
+		<GridBg />
+
+		<span
+			class='cs-index pointer-events-none absolute -right-4 top-10 -z-10 select-none font-display text-[42vw] leading-none font-bold tracking-[-0.06em] text-transparent [-webkit-text-stroke:1px_rgb(255_229_218/0.07)] md:-right-8 md:top-4 md:text-[30vw]'
+			aria-hidden='true'
+		>
+			{pad(index + 1)}
+		</span>
+
+		<div class='mx-auto max-w-5xl'>
+			<a
+				href='/#projects'
+				class='group inline-flex items-center gap-2 font-display text-xs tracking-widest text-muted uppercase transition-colors hover:text-primary'
+			>
+				<ArrowLeft
+					width={14}
+					height={14}
+					aria-hidden='true'
+					class='transition-transform duration-300 group-hover:-translate-x-1'
+				/>
+				All projects
+			</a>
+
+			<p
+				id='cs-eyebrow'
+				class='mt-12 font-display text-xs tracking-widest text-secondary uppercase opacity-0'
+			>
+				// Case Study {pad(index + 1)}
+				<span class='text-body-text/30'> / {pad(total)}</span>
+			</p>
+
+			<h1
+				id='cs-title'
+				class='mt-4 overflow-hidden text-4xl font-bold sm:text-5xl md:text-6xl lg:text-[76px]/[1.05]'
+			>
+				{title}
+			</h1>
+
+			<p
+				id='cs-sub'
+				class='mt-6 max-w-2xl text-base leading-relaxed text-muted opacity-0 md:text-lg'
+			>
+				{description}
+			</p>
+
+			<div id='cs-meta' class='opacity-0'>
+				<div class='mt-8 flex flex-wrap items-center gap-3'>
+					<span class='inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-2 font-display text-xs tracking-wider text-primary uppercase'>
+						{kind === 'university' ? (
+							<>
+								<GraduationCap width={14} height={14} aria-hidden='true' />
+								University project
+							</>
+						) : (
+							<>
+								<LockSimple width={14} height={14} aria-hidden='true' />
+								Private client work
+							</>
+						)}
+					</span>
+					{stack.map((tech) => (
+						<span class='inline-flex items-center gap-2 rounded-full border border-body-text/10 px-4 py-2 text-sm text-body-text/80 [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:fill-current [&_svg]:text-secondary'>
+							<Fragment set:html={techIcons[tech]} />
+							{tech}
+						</span>
+					))}
+				</div>
+
+				<dl class='mt-14 grid grid-cols-2 gap-x-6 md:grid-cols-4'>
+					{specs.map((spec) => (
+						<div class='border-t border-body-text/10 py-5'>
+							<dt class='font-display text-[11px] tracking-widest text-body-text/40 uppercase'>
+								{spec.label}
+							</dt>
+							<dd class='mt-1.5 text-sm text-body-text md:text-base'>{spec.value}</dd>
+						</div>
+					))}
+				</dl>
+			</div>
+		</div>
+	</section>
+
+	<section class='px-8 py-20 md:py-28'>
+		<div id='cs-body' class='mx-auto grid max-w-5xl gap-12 md:grid-cols-12'>
+			{sections.length > 0 && (
+				<aside class='md:col-span-3'>
+					<nav id='cs-toc' aria-label='Case study sections'>
+						<p class='font-display text-[11px] tracking-widest text-body-text/40 uppercase'>
+							Contents
+						</p>
+						<ol class='mt-4 flex flex-col gap-2.5 border-l border-body-text/10'>
+							{sections.map((heading, i) => (
+								<li>
+									<a
+										href={`#${heading.slug}`}
+										class='-ml-px flex gap-3 border-l border-transparent pl-4 text-sm text-muted transition-colors hover:text-body-text data-active:border-primary data-active:text-body-text'
+									>
+										<span class='font-display text-xs text-body-text/30'>{pad(i + 1)}</span>
+										{heading.text}
+									</a>
+								</li>
+							))}
+						</ol>
+					</nav>
+				</aside>
+			)}
+
+			<article class='case-study min-w-0 md:col-span-8 md:col-start-5'>
+				<Content />
+			</article>
+		</div>
+	</section>
+
+	{next.id !== entry.id && (
+		<section class='border-t border-body-text/10 px-8'>
+			<a
+				href={`/projects/${next.id}`}
+				class='group mx-auto flex max-w-5xl items-end justify-between gap-6 py-16 md:py-24'
+			>
+				<span>
+					<span class='block font-display text-xs tracking-widest text-secondary uppercase'>
+						// Next case study
+					</span>
+					<span class='mt-4 block bg-linear-to-r from-current to-current bg-size-[0_2px] bg-bottom-left bg-no-repeat text-3xl font-bold transition-[background-size,color] duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:bg-size-[100%_2px] group-hover:text-primary group-focus-visible:bg-size-[100%_2px] sm:text-5xl md:text-6xl'>
+						{next.data.title}
+					</span>
+				</span>
+				<ArrowRight
+					width={40}
+					height={40}
+					aria-hidden='true'
+					class='mb-2 shrink-0 text-muted transition-[color,transform] duration-300 group-hover:translate-x-2 group-hover:text-primary'
+				/>
+			</a>
+		</section>
+	)}
+</Layout>
+
+<script>
+	import { revealSection } from '@lib/scroll-reveal';
+	import { splitTitleChars } from '@lib/split-title';
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	const title = document.getElementById('cs-title') as HTMLElement;
+	const eyebrow = document.getElementById('cs-eyebrow') as HTMLElement;
+	const sub = document.getElementById('cs-sub') as HTMLElement;
+	const meta = document.getElementById('cs-meta') as HTMLElement;
+
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		gsap.set([eyebrow, sub, meta], { opacity: 1 });
+	} else {
+		const chars = splitTitleChars(title);
+
+		gsap
+			.timeline({ defaults: { ease: 'power3.out' } })
+			.to(eyebrow, { opacity: 1, duration: 0.5 })
+			.from(chars, { y: '110%', opacity: 0, duration: 0.8, stagger: 0.015 }, '-=0.2')
+			.to(sub, { opacity: 1, duration: 0.6 }, '-=0.3')
+			.fromTo(meta, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
+
+		gsap.from('.cs-index', { opacity: 0, x: 80, duration: 1.4, ease: 'power3.out' });
+	}
+
+	revealSection({ containerSelector: '#cs-outcomes', rowSelector: '.cs-outcome' });
+
+	const toc = document.getElementById('cs-toc');
+
+	if (toc) {
+		gsap.matchMedia().add('(min-width: 768px)', () => {
+			ScrollTrigger.create({
+				trigger: toc,
+				pin: true,
+				start: 'top 48px',
+				endTrigger: '#cs-body',
+				end: () => `bottom ${toc.offsetHeight + 48}px`,
+			});
+		});
+
+		const links = Array.from(toc.querySelectorAll('a'));
+		const setActive = (active?: HTMLAnchorElement) =>
+			links.forEach((link) => link.toggleAttribute('data-active', link === active));
+
+		links.forEach((link, i) => {
+			ScrollTrigger.create({
+				trigger: link.hash,
+				// Near the top so a clicked heading doesn't also activate the next one; clamp() for the last headings.
+				start: 'clamp(top 100px)',
+				onEnter: () => setActive(link),
+				onLeaveBack: () => setActive(links[i - 1]),
+			});
+		});
+	}
+</script>

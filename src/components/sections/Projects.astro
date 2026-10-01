@@ -1,74 +1,42 @@
 ---
+import { getCollection } from 'astro:content';
+import ArrowUpRight from 'phosphor-astro/ArrowUpRight.astro';
 import GithubLogo from 'phosphor-astro/GithubLogo.astro';
-import iconNextjs from 'simple-icons/icons/nextdotjs.svg?raw';
-import iconBetterAuth from 'simple-icons/icons/betterauth.svg?raw';
-import iconPostgresql from 'simple-icons/icons/postgresql.svg?raw';
-import iconMysql from 'simple-icons/icons/mysql.svg?raw';
-import iconPrisma from 'simple-icons/icons/prisma.svg?raw';
-import iconLaravel from 'simple-icons/icons/laravel.svg?raw';
-import iconReact from 'simple-icons/icons/react.svg?raw';
-import iconInertia from 'simple-icons/icons/inertia.svg?raw';
-import iconSpringBoot from 'simple-icons/icons/springboot.svg?raw';
-import iconAstro from 'simple-icons/icons/astro.svg?raw';
-import iconShadcn from 'simple-icons/icons/shadcnui.svg?raw';
+import TechIcon from '@components/ui/tech-icon.astro';
 
 interface Project {
 	title: string;
 	description: string;
 	stack: string[];
-	github?: string;
+	href: string;
+	external?: boolean;
 }
 
-const stripTitle = (svg: string) =>
-	svg.replace(/<title>.*?<\/title>/, '').replace('role="img"', 'aria-hidden="true"');
+const HOME_STACK_SIZE = 3;
 
-const techIcons: Record<string, string> = {
-	'Next.js': stripTitle(iconNextjs),
-	'Better-Auth': stripTitle(iconBetterAuth),
-	PostgreSQL: stripTitle(iconPostgresql),
-	MySQL: stripTitle(iconMysql),
-	Prisma: stripTitle(iconPrisma),
-	Laravel: stripTitle(iconLaravel),
-	React: stripTitle(iconReact),
-	Inertia: stripTitle(iconInertia),
-	'Shadcn UI': stripTitle(iconShadcn),
-	'Spring Boot': stripTitle(iconSpringBoot),
-	'Astro.js': stripTitle(iconAstro),
-};
-
-const projects: Project[] = [
+const openSource: Project[] = [
 	{
 		title: 'Next.js Starter Template',
 		description:
 			'A boilerplate template for kicking off new projects fast, wired up with Better-Auth for authentication and a PostgreSQL database out of the box.',
 		stack: ['Next.js', 'Better-Auth', 'PostgreSQL'],
-		github: 'https://github.com/MicrowebPG/nextjs-template',
-	},
-	{
-		title: 'Fitness Platform',
-		description:
-			'A content management system for building questionnaires and generating reports, designed to let non-technical staff publish and analyze surveys.',
-		stack: ['Next.js', 'MySQL', 'Prisma'],
-	},
-	{
-		title: 'Parcel Dashboard',
-		description:
-			'A shipment tracking dashboard for monitoring parcels in transit, built with a component-driven admin UI and a type-safe data layer.',
-		stack: ['Next.js', 'Prisma', 'Shadcn UI'],
-	},
-	{
-		title: 'E-Learning Platform',
-		description:
-			'A course and user management system pairing a Laravel backend with a React front end via Inertia, for managing enrollments and content.',
-		stack: ['Laravel', 'React', 'Inertia'],
-	},
-	{
-		title: 'Events Management',
-		description:
-			'A platform for managing events, selling tickets, scheduling, and generating QR codes for attendees.',
-		stack: ['Spring Boot', 'PostgreSQL', 'Astro.js'],
+		href: 'https://github.com/MicrowebPG/nextjs-template',
+		external: true,
 	},
 ];
+
+const caseStudies = (await getCollection('projects'))
+	.sort((a, b) => a.data.order - b.data.order)
+	.map(({ id, data }) => ({
+		title: data.title,
+		description: data.description,
+		stack: data.stack.slice(0, HOME_STACK_SIZE),
+		href: `/projects/${id}`,
+	}));
+
+const projects: Project[] = [...openSource, ...caseStudies];
+const iconClass =
+	'text-muted transition-[color,transform] duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary';
 ---
 
 <section id='projects' class='section py-16 px-8'>
@@ -76,53 +44,40 @@ const projects: Project[] = [
 		<h2 class='title'>Projects</h2>
 
 		<ul class='mt-8'>
-			{projects.map((project, i) => (
-				<li class='project-row group relative -mx-4 rounded-lg border-t border-body-text/10 px-4 py-8 transition-colors first:border-t-0 hover:bg-body-text/3 md:grid md:grid-cols-12 md:items-center md:gap-6'>
-					<span class='font-display text-2xl text-primary/40 transition-colors duration-300 group-hover:text-primary md:col-span-1 md:text-3xl'>
-						{String(i + 1).padStart(2, '0')}
-					</span>
+			{projects.map((project) => (
+				<li class='project-row -mx-4 border-t border-body-text/10 first:border-t-0'>
+					<a
+						href={project.href}
+						target={project.external ? '_blank' : undefined}
+						rel={project.external ? 'noopener noreferrer' : undefined}
+						class='group block rounded-lg px-4 py-8 transition-colors hover:bg-body-text/3 focus-visible:bg-body-text/3 focus-visible:outline-2 focus-visible:outline-primary md:grid md:grid-cols-12 md:items-center md:gap-6'
+					>
+						<div class='md:col-span-8'>
+							<h3 class='mb-2 text-xl font-bold transition-colors group-hover:text-primary md:text-2xl'>
+								{project.title}
+							</h3>
+							<p class='max-w-md text-sm leading-relaxed text-muted md:text-base'>
+								{project.description}
+							</p>
+						</div>
 
-					<div class='md:col-span-8'>
-						<h3 class='mb-2 text-xl font-bold transition-colors group-hover:text-primary md:text-2xl'>
-							{project.title}
-						</h3>
-						<p class='max-w-md text-sm leading-relaxed text-muted md:text-base'>
-							{project.description}
-						</p>
-					</div>
+						<div class='mt-4 flex flex-wrap items-center gap-3 md:col-span-3 md:mt-0'>
+							{project.stack.map((tech) => (
+								<TechIcon tech={tech} />
+							))}
+						</div>
 
-					<div class='mt-4 flex items-center gap-3 md:col-span-2 md:mt-0'>
-						{project.stack.map((tech) => (
-							<span
-								class='tech-icon group/tech relative inline-flex text-secondary transition-colors duration-300 hover:text-secondary/80 [&>svg]:block [&>svg]:h-4.5 [&>svg]:w-4.5 [&>svg]:fill-current'
-								tabindex='0'
-							>
-								<Fragment set:html={techIcons[tech]} />
-								<span class='sr-only'>{tech}</span>
-								<span
-									role='tooltip'
-									aria-hidden='true'
-									class='pointer-events-none absolute -top-8 left-1/2 z-20 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded border border-secondary/20 bg-background px-2 py-1 font-display text-xs uppercase tracking-wider text-secondary opacity-0 shadow-lg shadow-black/30 transition-[transform,opacity] duration-200 group-hover/tech:translate-y-0 group-hover/tech:opacity-100 group-focus-visible/tech:translate-y-0 group-focus-visible/tech:opacity-100'
-								>
-									{tech}
-								</span>
-							</span>
-						))}
-					</div>
-
-					<div class='mt-4 flex items-center gap-4 md:col-span-1 md:mt-0 md:justify-end'>
-						{project.github && (
-							<a
-								href={project.github}
-								target='_blank'
-								rel='noopener noreferrer'
-								aria-label={`View ${project.title} on GitHub`}
-								class='text-muted transition-colors hover:text-primary'
-							>
-								<GithubLogo width={20} height={20} />
-							</a>
-						)}
-					</div>
+						<div class='mt-4 flex items-center md:col-span-1 md:mt-0 md:justify-end'>
+							{project.external ? (
+								<>
+									<GithubLogo width={20} height={20} aria-hidden='true' class={iconClass} />
+									<span class='sr-only'>(opens GitHub in a new tab)</span>
+								</>
+							) : (
+								<ArrowUpRight width={20} height={20} aria-hidden='true' class={iconClass} />
+							)}
+						</div>
+					</a>
 				</li>
 			))}
 		</ul>
