@@ -105,28 +105,23 @@ const categories: Category[] = [
 		</p>
 
 		<div class='mt-10 space-y-8'>
-			{
-				categories.map((category, i) => (
-					<div class='skills-row group'>
-						<div class='mb-4 flex items-baseline gap-4'>
-							<span class='font-display text-xs text-body-text/30 transition-colors group-hover:text-primary'>
-								{String(i + 1).padStart(2, '0')}
-							</span>
-							<h3 class='font-display tracking-widest text-secondary uppercase'>{category.name}</h3>
-							<span class='h-px flex-1 bg-body-text/10' />
-						</div>
-
-						<ul class='flex flex-wrap gap-3 sm:pl-9'>
-							{category.skills.map((skill) => (
-								<li class='skill-pill inline-flex items-center gap-2 rounded-full border border-body-text/10 px-4 py-2 text-sm text-body-text/80 transition-colors duration-300 hover:border-primary/40 hover:text-primary [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:shrink-0 [&_svg]:fill-secondary [&_svg]:transition-colors [&_svg]:duration-300 [&:hover_svg]:fill-primary'>
-									{skill.icon && <Fragment set:html={stripTitle(skill.icon)} />}
-									<span class='cursor-default'>{skill.name}</span>
-								</li>
-							))}
-						</ul>
+			{categories.map((category) => (
+				<div class='skills-row group'>
+					<div class='mb-4 flex items-baseline gap-4'>
+						<h3 class='font-display tracking-widest text-secondary uppercase'>{category.name}</h3>
+						<span class='h-px flex-1 bg-body-text/10' />
 					</div>
-				))
-			}
+
+					<ul class='flex flex-wrap gap-3 sm:pl-9'>
+						{category.skills.map((skill) => (
+							<li class='skill-pill inline-flex items-center gap-2 rounded-full border border-body-text/10 px-4 py-2 text-sm text-body-text/80 transition-colors duration-300 hover:border-primary/40 hover:text-primary [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:shrink-0 [&_svg]:fill-secondary [&_svg]:transition-colors [&_svg]:duration-300 [&:hover_svg]:fill-primary'>
+								{skill.icon && <Fragment set:html={stripTitle(skill.icon)} />}
+								<span class='cursor-default'>{skill.name}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			))}
 		</div>
 	</div>
 </section>

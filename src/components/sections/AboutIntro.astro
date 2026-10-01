@@ -28,11 +28,11 @@ const badges = [
 		<h1
 			id='about-title'
 			class='mt-4 overflow-hidden text-4xl sm:text-5xl md:text-6xl lg:text-[68px]/[1.1]'
-			aria-label="Hi, I’m Michael — junior full-stack developer."
+			aria-label='Hi, I’m Michael — junior full-stack developer.'
 		>
-			<span aria-hidden='true'
-				>Hi, I’m Michael — junior <span class='text-primary'>full-stack developer.</span></span
-			>
+			<span aria-hidden='true'>
+				Hi, I’m Michael — junior <span class='text-primary'>full-stack developer.</span>
+			</span>
 		</h1>
 
 		<p
@@ -47,24 +47,22 @@ const badges = [
 		</p>
 
 		<div id='about-badges' class='mt-8 flex flex-wrap gap-3 opacity-0'>
-			{
-				badges.map((badge) => {
-					const IconComponent = badge.icon;
-					return (
-						<span class='inline-flex items-center gap-2 rounded-full border border-body-text/10 px-4 py-2 text-sm text-body-text/80 [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:shrink-0 [&_svg]:text-secondary'>
-							<IconComponent width={14} height={14} aria-hidden='true' />
-							{badge.label}
-						</span>
-					);
-				})
-			}
+			{badges.map((badge) => {
+				const IconComponent = badge.icon;
+				return (
+					<span class='inline-flex items-center gap-2 rounded-full border border-body-text/10 px-4 py-2 text-sm text-body-text/80 [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:shrink-0 [&_svg]:text-secondary'>
+						<IconComponent width={14} height={14} aria-hidden='true' />
+						{badge.label}
+					</span>
+				);
+			})}
 		</div>
 	</div>
 </section>
 
 <script>
-	import { gsap } from 'gsap';
 	import { splitTitleChars } from '@lib/split-title';
+	import { gsap } from 'gsap';
 
 	const title = document.getElementById('about-title') as HTMLElement;
 	const eyebrow = document.getElementById('about-eyebrow') as HTMLElement;

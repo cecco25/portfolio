@@ -67,7 +67,7 @@ const personSchema = {
 		<div id='smooth-wrapper'>
 			<div id='smooth-content'>
 				<Navbar />
-				<main id='main-content' tabindex='-1'>
+				<main id='main-content'>
 					<slot />
 				</main>
 				<Footer />
@@ -93,9 +93,6 @@ const personSchema = {
 
 	const scrollToTarget = (target: Element) => {
 		smoother.scrollTo(target, !prefersReducedMotion, 'top top');
-		if (target instanceof HTMLElement && target.hasAttribute('tabindex')) {
-			target.focus({ preventScroll: true });
-		}
 	};
 
 	if (window.location.hash) {

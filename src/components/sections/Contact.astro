@@ -34,8 +34,7 @@ const links: ContactLink[] = [
 	<div
 		class='pointer-events-none absolute top-1/2 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[120px]'
 		aria-hidden='true'
-	>
-	</div>
+	></div>
 
 	<div class='pointer-events-none absolute inset-4 sm:inset-6' aria-hidden='true'>
 		<span class='border-body-text/20 absolute top-0 left-0 h-4 w-4 border-t border-l'></span>
@@ -50,8 +49,8 @@ const links: ContactLink[] = [
 		<div class='mt-8 grid gap-10 md:grid-cols-12 md:gap-14'>
 			<div class='md:col-span-7'>
 				<p class='leading-snug text-xl sm:text-2xl'>
-					<span class='font-display text-primary'>Got a project in mind?</span> I’m always open to discussing
-					new opportunities.
+					<span class='font-display text-primary'>Got a project in mind?</span> I’m always open to
+					discussing new opportunities.
 				</p>
 
 				<a
@@ -59,14 +58,10 @@ const links: ContactLink[] = [
 					class='group mt-8 inline-flex items-baseline gap-2 border-b-2 border-primary/30 pb-2 transition-colors hover:border-primary'
 					title={`Email: ${email}`}
 				>
-					<span
-						class='font-display sm:text-xl leading-none font-bold break-all text-body-text transition-colors group-hover:text-primary hidden sm:inline'
-					>
+					<span class='font-display sm:text-xl leading-none font-bold break-all text-body-text transition-colors group-hover:text-primary hidden sm:inline'>
 						{email}
 					</span>
-					<span
-						class='font-display leading-none font-bold break-all text-body-text transition-colors group-hover:text-primary sm:hidden'
-					>
+					<span class='font-display leading-none font-bold break-all text-body-text transition-colors group-hover:text-primary sm:hidden'>
 						Send a Message
 					</span>
 					<ArrowUpRight
@@ -81,45 +76,43 @@ const links: ContactLink[] = [
 			<div class='md:col-span-5'>
 				<h3 class='mb-2 font-display tracking-wide text-secondary uppercase'>Social</h3>
 				<ul>
-					{
-						links.map((link, i) => {
-							const IconComponent = link.icon;
+					{links.map((link) => {
+						const IconComponent = link.icon;
 
-							return (
-								<li class='contact-row group border-b border-body-text/10 py-2.5 last:border-b-0'>
-									<a
-										href={link.href}
-										target='_blank'
-										rel='noopener noreferrer'
-										class='flex items-center gap-4'
+						return (
+							<li class='contact-row group border-b border-body-text/10 py-2.5 last:border-b-0'>
+								<a
+									href={link.href}
+									target='_blank'
+									rel='noopener noreferrer'
+									class='flex items-center gap-4'
+								>
+									<IconComponent
+										width={18}
+										height={18}
+										class='shrink-0 text-secondary'
+										aria-hidden='true'
+									/>
+									<span class='transition-colors group-hover:text-primary'>{link.name}</span>
+									<span
+										class='ml-auto hidden min-w-0 font-display text-xs truncate text-body-text/30 transition-colors group-hover:text-primary sm:inline'
+										title={link.display}
 									>
-										<span class='font-display text-xs text-body-text/30 transition-colors group-hover:text-primary'>
-											{String(i + 1).padStart(2, '0')}
-										</span>
-										<IconComponent width={18} height={18} class='shrink-0 text-secondary' aria-hidden='true' />
-										<span class='transition-colors group-hover:text-primary'>{link.name}</span>
-										<span
-											class='ml-auto hidden min-w-0 font-display text-xs truncate text-body-text/30 transition-colors group-hover:text-primary sm:inline'
-											title={link.display}
-										>
-											{link.display}
-										</span>
-										<ArrowUpRight
-											width={14}
-											height={14}
-											class='shrink-0 text-body-text/30 transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary'
-											aria-hidden='true'
-										/>
-									</a>
-								</li>
-							);
-						})
-					}
+										{link.display}
+									</span>
+									<ArrowUpRight
+										width={14}
+										height={14}
+										class='shrink-0 text-body-text/30 transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary'
+										aria-hidden='true'
+									/>
+								</a>
+							</li>
+						);
+					})}
 				</ul>
 
-				<div
-					class='mt-10 flex items-center gap-3 font-display text-xs tracking-widest text-muted uppercase'
-				>
+				<div class='mt-10 flex items-center gap-3 font-display text-xs tracking-widest text-muted uppercase'>
 					<EnvelopeSimple width={14} height={14} aria-hidden='true' />
 					<span>Based in Perugia, Italy — open to remote work</span>
 				</div>

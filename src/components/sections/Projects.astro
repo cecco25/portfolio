@@ -65,7 +65,7 @@ const projects: Project[] = [
 	{
 		title: 'Events Management',
 		description:
-			'A platform for managing events, selling tickets, scheduling, and generate QR codes for attendees.',
+			'A platform for managing events, selling tickets, scheduling, and generating QR codes for attendees.',
 		stack: ['Spring Boot', 'PostgreSQL', 'Astro.js'],
 	},
 ];
@@ -76,57 +76,55 @@ const projects: Project[] = [
 		<h2 class='title'>Projects</h2>
 
 		<ul class='mt-8'>
-			{
-				projects.map((project, i) => (
-					<li class='project-row group relative -mx-4 rounded-lg border-t border-body-text/10 px-4 py-8 transition-colors first:border-t-0 hover:bg-body-text/3 md:grid md:grid-cols-12 md:items-center md:gap-6'>
-						<span class='font-display text-2xl text-primary/40 transition-colors duration-300 group-hover:text-primary md:col-span-1 md:text-3xl'>
-							{String(i + 1).padStart(2, '0')}
-						</span>
+			{projects.map((project, i) => (
+				<li class='project-row group relative -mx-4 rounded-lg border-t border-body-text/10 px-4 py-8 transition-colors first:border-t-0 hover:bg-body-text/3 md:grid md:grid-cols-12 md:items-center md:gap-6'>
+					<span class='font-display text-2xl text-primary/40 transition-colors duration-300 group-hover:text-primary md:col-span-1 md:text-3xl'>
+						{String(i + 1).padStart(2, '0')}
+					</span>
 
-						<div class='md:col-span-8'>
-							<h3 class='mb-2 text-xl font-bold transition-colors group-hover:text-primary md:text-2xl'>
-								{project.title}
-							</h3>
-							<p class='max-w-md text-sm leading-relaxed text-muted md:text-base'>
-								{project.description}
-							</p>
-						</div>
+					<div class='md:col-span-8'>
+						<h3 class='mb-2 text-xl font-bold transition-colors group-hover:text-primary md:text-2xl'>
+							{project.title}
+						</h3>
+						<p class='max-w-md text-sm leading-relaxed text-muted md:text-base'>
+							{project.description}
+						</p>
+					</div>
 
-						<div class='mt-4 flex items-center gap-3 md:col-span-2 md:mt-0'>
-							{project.stack.map((tech) => (
+					<div class='mt-4 flex items-center gap-3 md:col-span-2 md:mt-0'>
+						{project.stack.map((tech) => (
+							<span
+								class='tech-icon group/tech relative inline-flex text-secondary transition-colors duration-300 hover:text-secondary/80 [&>svg]:block [&>svg]:h-4.5 [&>svg]:w-4.5 [&>svg]:fill-current'
+								tabindex='0'
+							>
+								<Fragment set:html={techIcons[tech]} />
+								<span class='sr-only'>{tech}</span>
 								<span
-									class='tech-icon group/tech relative inline-flex text-secondary transition-colors duration-300 hover:text-secondary/80 [&>svg]:block [&>svg]:h-4.5 [&>svg]:w-4.5 [&>svg]:fill-current'
-									tabindex='0'
+									role='tooltip'
+									aria-hidden='true'
+									class='pointer-events-none absolute -top-8 left-1/2 z-20 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded border border-secondary/20 bg-background px-2 py-1 font-display text-xs uppercase tracking-wider text-secondary opacity-0 shadow-lg shadow-black/30 transition-[transform,opacity] duration-200 group-hover/tech:translate-y-0 group-hover/tech:opacity-100 group-focus-visible/tech:translate-y-0 group-focus-visible/tech:opacity-100'
 								>
-									<Fragment set:html={techIcons[tech]} />
-									<span class='sr-only'>{tech}</span>
-									<span
-										role='tooltip'
-										aria-hidden='true'
-										class='pointer-events-none absolute -top-8 left-1/2 z-20 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded border border-secondary/20 bg-background px-2 py-1 font-display text-xs uppercase tracking-wider text-secondary opacity-0 shadow-lg shadow-black/30 transition-[transform,opacity] duration-200 group-hover/tech:translate-y-0 group-hover/tech:opacity-100 group-focus-visible/tech:translate-y-0 group-focus-visible/tech:opacity-100'
-									>
-										{tech}
-									</span>
+									{tech}
 								</span>
-							))}
-						</div>
+							</span>
+						))}
+					</div>
 
-						<div class='mt-4 flex items-center gap-4 md:col-span-1 md:mt-0 md:justify-end'>
-							{project.github && (
-								<a
-									href={project.github}
-									target='_blank'
-									rel='noopener noreferrer'
-									aria-label={`View ${project.title} on GitHub`}
-									class='text-muted transition-colors hover:text-primary'
-								>
-									<GithubLogo width={20} height={20} />
-								</a>
-							)}
-						</div>
-					</li>
-				))
-			}
+					<div class='mt-4 flex items-center gap-4 md:col-span-1 md:mt-0 md:justify-end'>
+						{project.github && (
+							<a
+								href={project.github}
+								target='_blank'
+								rel='noopener noreferrer'
+								aria-label={`View ${project.title} on GitHub`}
+								class='text-muted transition-colors hover:text-primary'
+							>
+								<GithubLogo width={20} height={20} />
+							</a>
+						)}
+					</div>
+				</li>
+			))}
 		</ul>
 	</div>
 </section>
