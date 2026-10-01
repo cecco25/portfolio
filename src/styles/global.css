@@ -76,7 +76,7 @@
 
     & h2 {
       counter-increment: cs-section;
-      @apply mt-16 mb-5 text-2xl/tight font-bold text-body-text first:mt-0;
+      @apply mt-16 mb-5 scroll-mt-24 text-2xl/tight font-bold text-balance text-body-text first:mt-0;
     }
 
     & h2::before {

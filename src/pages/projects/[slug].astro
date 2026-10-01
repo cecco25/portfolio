@@ -12,7 +12,6 @@ import { techIcons } from '@lib/tech-icons';
 interface Props {
 	entry: CollectionEntry<'projects'>;
 	index: number;
-	total: number;
 	next: CollectionEntry<'projects'>;
 }
 
@@ -24,14 +23,13 @@ export const getStaticPaths = (async () => {
 		props: {
 			entry,
 			index,
-			total: entries.length,
 			next: entries[(index + 1) % entries.length],
 		},
 	}));
 }) satisfies GetStaticPaths;
 
-const { entry, index, total, next } = Astro.props;
-const { title, description, kind, stack, role, type, timeline, outcomes } = entry.data;
+const { entry, index, next } = Astro.props;
+const { title, description, kind, stack, role, type, timeline } = entry.data;
 const { Content, headings } = await render(entry);
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -73,13 +71,12 @@ const specs = [
 				id='cs-eyebrow'
 				class='mt-12 font-display text-xs tracking-widest text-secondary uppercase opacity-0'
 			>
-				// Case Study {pad(index + 1)}
-				<span class='text-body-text/30'> / {pad(total)}</span>
+				// Case Study
 			</p>
 
 			<h1
 				id='cs-title'
-				class='mt-4 overflow-hidden text-4xl font-bold sm:text-5xl md:text-6xl lg:text-[76px]/[1.05]'
+				class='mt-4 overflow-hidden text-4xl font-bold text-balance sm:text-5xl md:text-6xl lg:text-[76px]/[1.05]'
 			>
 				{title}
 			</h1>
@@ -107,14 +104,17 @@ const specs = [
 						)}
 					</span>
 					{stack.map((tech) => (
-						<span class='inline-flex items-center gap-2 rounded-full border border-body-text/10 px-4 py-2 text-sm text-body-text/80 [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:fill-current [&_svg]:text-secondary'>
+						<span
+							translate='no'
+							class='inline-flex items-center gap-2 rounded-full border border-body-text/10 px-4 py-2 text-sm text-body-text/80 [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:fill-current [&_svg]:text-secondary'
+						>
 							<Fragment set:html={techIcons[tech]} />
 							{tech}
 						</span>
 					))}
 				</div>
 
-				<dl class='mt-14 grid grid-cols-2 gap-x-6 md:grid-cols-4'>
+				<dl class='mt-14 grid grid-cols-2 gap-x-6 md:grid-cols-3'>
 					{specs.map((spec) => (
 						<div class='border-t border-body-text/10 py-5'>
 							<dt class='font-display text-[11px] tracking-widest text-body-text/40 uppercase'>
@@ -169,7 +169,7 @@ const specs = [
 					<span class='block font-display text-xs tracking-widest text-secondary uppercase'>
 						// Next case study
 					</span>
-					<span class='mt-4 block bg-linear-to-r from-current to-current bg-size-[0_2px] bg-bottom-left bg-no-repeat text-3xl font-bold transition-[background-size,color] duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:bg-size-[100%_2px] group-hover:text-primary group-focus-visible:bg-size-[100%_2px] sm:text-5xl md:text-6xl'>
+					<span class='relative mt-4 inline-block text-3xl font-bold text-balance transition-colors duration-300 group-hover:text-primary after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-500 after:ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:after:scale-x-100 group-focus-visible:after:scale-x-100 sm:text-5xl md:text-6xl'>
 						{next.data.title}
 					</span>
 				</span>
@@ -185,7 +185,6 @@ const specs = [
 </Layout>
 
 <script>
-	import { revealSection } from '@lib/scroll-reveal';
 	import { splitTitleChars } from '@lib/split-title';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -211,8 +210,6 @@ const specs = [
 
 		gsap.from('.cs-index', { opacity: 0, x: 80, duration: 1.4, ease: 'power3.out' });
 	}
-
-	revealSection({ containerSelector: '#cs-outcomes', rowSelector: '.cs-outcome' });
 
 	const toc = document.getElementById('cs-toc');
 

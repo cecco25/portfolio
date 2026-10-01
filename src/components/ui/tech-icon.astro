@@ -9,12 +9,12 @@ const { tech } = Astro.props;
 ---
 
 <span
+	translate='no'
 	class='tech-icon group/tech relative inline-flex text-secondary transition-colors duration-300 hover:text-secondary/80 [&>svg]:block [&>svg]:h-4.5 [&>svg]:w-4.5 [&>svg]:fill-current'
 >
 	<Fragment set:html={techIcons[tech]} />
 	<span class='sr-only'>{tech}</span>
 	<span
-		role='tooltip'
 		aria-hidden='true'
 		class='pointer-events-none absolute -top-8 left-1/2 z-20 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded border border-secondary/20 bg-background px-2 py-1 font-display text-xs uppercase tracking-wider text-secondary opacity-0 shadow-lg shadow-black/30 transition-[transform,opacity] duration-200 group-hover/tech:translate-y-0 group-hover/tech:opacity-100'
 	>
