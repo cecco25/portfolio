@@ -1,6 +1,12 @@
+---
+import Image from 'astro/components/Image.astro';
+---
+
 <div class='w-full flex justify-center'>
-	<img
+	<Image
 		src='/pic.jpeg'
+		width={224}
+		height={224}
 		class='rounded-full border border-secondary w-56 aspect-square object-cover object-bottom'
 		alt='avatar'
 	/>
